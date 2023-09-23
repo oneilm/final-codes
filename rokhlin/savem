@@ -1,0 +1,8 @@
+  rm savem.o
+  rm savemfort
+  f77  -fast -c savem.f
+  f77 -o savemfort  savem.o ../prini.o 
+  savemfort
+
+
+

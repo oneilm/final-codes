@@ -1,0 +1,8 @@
+  rm legeexps.o
+  rm int2
+  f77  -c legeexps.f
+  f77 -o int2  legeexps.o ../prini.o  
+  int2
+
+
+

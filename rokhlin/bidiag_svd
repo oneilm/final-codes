@@ -1,0 +1,6 @@
+  rm bidiag_svd.o
+  rm int2
+  f77 -fast -c bidiag_svd.f
+  f77  -o int2  bidiag_svd.o  ../prini.o  ../quaplot.o ../trplopen.o \
+                         ../svdpivot.o ../jaceig.o 
+  int2

@@ -1,0 +1,11 @@
+  rm quaevol2.o
+  rm int2
+  f77 -fast -c quaevol2.f
+  f77 -o int2  quaevol2.o ../prini.o ../legeexps.o  \
+               ../mvecsvd.o ../qrsolve.o ../allsvcmb.o \
+               ../lotaplot.o ../leastsq.o  ../orthom.o \
+                      ../adapgaus.o 
+  int2
+
+
+

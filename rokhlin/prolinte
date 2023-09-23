@@ -1,0 +1,12 @@
+  rm prolinte.o
+  rm int2
+  f77 -fast  -c prolinte.f
+  f77 -o int2  prolinte.o ../prini.o ../lotaplot.o \
+               ../legeexps.o ../prolcrea.o ../leastsq.o \
+               ../lagrcoef.o ../proquadr.o ../grmsol.o ../orthom.o \
+               ../qrsolve.o
+
+  int2
+
+
+

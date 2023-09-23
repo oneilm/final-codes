@@ -1,0 +1,9 @@
+  rm univintall.o
+  rm int2
+  f77 -c univintall.f
+  f77 -o int2  univintall.o ../prini.o \
+                        ../legeexps.o ../adapgaus.o
+  int2
+
+
+

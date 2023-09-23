@@ -1,0 +1,4 @@
+rm int2
+f77 -o int2 ortho2eva_old.f ../prini.o  ../svdpivot.o ../triaadap.o ../legeexps.o
+int2
+

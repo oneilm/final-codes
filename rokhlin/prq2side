@@ -1,0 +1,9 @@
+  rm prq2side.o
+  rm int2
+  f77 -c prq2side.f 
+  f77 -o int2  prq2side.o  ../prini.o ../lotaplot.o \
+                         ../adapgaus.o ../legeexps.o 
+  int2
+
+
+

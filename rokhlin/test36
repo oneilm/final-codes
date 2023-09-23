@@ -1,0 +1,5 @@
+  rm test36.o
+  rm int2
+  f77 -c test36.f
+   f77 -o int2  test36.o ../prini.o ../rsplot.o legeexps.o svdpivot.o
+  int2

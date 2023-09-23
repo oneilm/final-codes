@@ -1,0 +1,9 @@
+  rm expolege_prod.o
+  rm int2
+  f77    -c expolege_prod.f
+  f77  -o int2  expolege_prod.o ../prini.o ../legeexps.o \
+                ../quaplot.o ../cadapgau.o \
+                ../svdpivot.o ../cqrsolve.o
+  int2
+
+

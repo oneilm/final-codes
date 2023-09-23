@@ -1,0 +1,8 @@
+  rm quad_retr9.o
+  rm int2
+  f77  -fast -c quad_retr9.f
+  f77 -o int2  quad_retr9.o ../prini.o ../cadapgau.o ../jb.o
+  int2
+
+
+

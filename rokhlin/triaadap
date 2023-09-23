@@ -1,0 +1,8 @@
+  rm triaadap_old.o
+  rm int2
+  f77  -c triaadap_old.f
+  f77 -o int2  triaadap_old.o ../prini.o ../rsplot.o ../legeexps.o
+  int2
+
+
+

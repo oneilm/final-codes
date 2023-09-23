@@ -1,0 +1,17 @@
+  rm test159.o
+  rm int2
+  f77  -c test159.f
+  f77 -o int2  -fast test159.o ../../../../prini.o ../../../../quaplot.o \
+               ../../../../trplopen.o ../../../../r2dstrcr.o \
+               ../../../../sortanyn.o ../../../../lotatime.o \
+               ../../../../square_basis.o ../../../../legeexps.o \
+               ../../../../csvdpiv.o ../../../../ncleastsq.o \
+               ../../../../r2d_outer_skels.o ../../../../square_skeleton.o \
+               ../../../../cqrsolve.o ../../../../hank103.o \
+               ../../../../rects_skeleton.o ../../../../cskeleton.o \
+               ../../../../r2d_allskels.o ../../../../corthom.o \
+               rikers_matrices.o
+  int2
+
+
+

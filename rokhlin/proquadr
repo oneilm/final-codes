@@ -1,0 +1,14 @@
+  rm proquadr.o
+  rm int2
+  f90 -c proquadr.f
+  f90 -o int2  proquadr.o \
+                    ../bin/prini.f \
+                    ../bin/lotaplot.f \
+                    ../bin/legeexps.f \
+                    ../bin/prolcrea.f \
+                    ../bin/orthom.f \
+                    ../bin/qrsolve.f
+  int2
+
+
+

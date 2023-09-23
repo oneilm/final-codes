@@ -1,0 +1,7 @@
+  rm lensemake.o
+  rm int2
+  f77 -fast -c lensemake.f
+  f77  -o int2  lensemake.o  ../prini.o ../hank103.o ../quaplot.o \
+                          ../prolcrea.o ../orthom.o ../qrsolve.o \
+                          ../legeexps.o ../proquadr.o ../durdec.o
+  int2

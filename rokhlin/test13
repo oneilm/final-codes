@@ -1,0 +1,8 @@
+  rm test13.o
+  rm int2
+  f77    -c test13.f
+  f77  -o int2  test13.o ../prini.o 
+  int2
+
+
+

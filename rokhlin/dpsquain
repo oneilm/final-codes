@@ -1,0 +1,5 @@
+  rm dpsquain.o
+  rm int2
+  f77  -c dpsquain.f
+   f77 -o int2  dpsquain.o ../prini.o
+  int2

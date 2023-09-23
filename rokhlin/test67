@@ -1,0 +1,11 @@
+  rm test67.o
+  rm int2
+  f77 -fast -c test67.f
+  f77 -o int2  test67.o ../../../prini.o ../../../lotaplot.o\
+                   ../../../lotatime.o \
+                  ../../../legeexps.o ../../../prolcrea.o  \
+                   ../../../orthom.o ../../../qrsolve.o
+  int2
+
+
+

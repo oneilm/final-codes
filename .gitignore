@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+int2
+
+#text outputs
+fort.*
+plot*.dat
+plot*.py

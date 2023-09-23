@@ -1,0 +1,8 @@
+  rm perilagr.o
+  rm int2
+  f77 -c perilagr.f
+  f77 -o int2  perilagr.o ../prini.o 
+  int2
+
+
+

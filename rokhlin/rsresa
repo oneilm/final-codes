@@ -1,0 +1,5 @@
+   rm rsresa.o
+  rm int2
+  fort77  -c rsresa.f
+  fort77 -o int2 rsresa.o  ../prini.o  ../lotaplot.o ../durdec.o
+  int2

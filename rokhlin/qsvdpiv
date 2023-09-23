@@ -1,0 +1,8 @@
+  rm qsvdpiv.o
+  rm int2
+  f77  -c qsvdpiv.f
+  f77 -o int2  qsvdpiv.o ../prini.o ../rsplot.o ../second.o 
+  int2
+
+
+

@@ -1,0 +1,10 @@
+  rm prolfili.o
+  rm int2
+  f77 -c prolfili.f
+  f77 -o int2  prolfili.o ../prini.o ../lotaplot.o \
+               ../legeexps.o ../prolcrea.o ../proquadr.o \
+               ../orthom.o ../qrsolve.o
+  int2
+
+
+

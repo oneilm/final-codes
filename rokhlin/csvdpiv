@@ -1,0 +1,8 @@
+  rm csvdpiv.o
+  rm int2
+  gfortran -c csvdpiv.f
+  gfortran -o int2  csvdpiv.o ../bin/prini.o 
+  int2
+
+
+

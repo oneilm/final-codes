@@ -1,0 +1,9 @@
+  rm qu10by20.o
+  rm int2
+  f77 -c qu10by20.f
+  f77 -o int2  qu10by20.o ../prini.o ../lotaplot.o \
+               ../legeexps.o ../adapgaus.o
+  int2
+
+
+

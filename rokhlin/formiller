@@ -1,0 +1,9 @@
+  rm formiller.o
+  rm int2
+  f77  -c formiller.f
+  f77 -o int2  formiller.o ../prini.o ../lotaplot.o ../legeexps.o
+
+  int2
+
+
+

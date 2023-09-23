@@ -1,0 +1,8 @@
+  rm ccubeadap.o
+  rm int2
+  f77  -c ccubeadap.f
+  f77 -o int2  ccubeadap.o ../prini.o ../quaplot.o ../cubeadap.o
+  int2
+
+
+

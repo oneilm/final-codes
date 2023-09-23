@@ -1,0 +1,8 @@
+  rm triaadam.o
+  rm int2
+  f77  -c triaadam.f
+  f77 -o int2  triaadam.o ../prini.o ../trplopen.o ../legeexps.o p2eval.o
+  int2
+
+
+

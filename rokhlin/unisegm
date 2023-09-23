@@ -1,0 +1,9 @@
+  rm unisegm.o
+  rm int2
+  f77  -c unisegm.f
+  f77 -o int2  unisegm.o ../prini.o ../lotaplot.o \
+                 ../adapgaus.o
+  int2
+
+
+

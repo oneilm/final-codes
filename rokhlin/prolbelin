@@ -1,0 +1,9 @@
+  rm prolbelin.o
+  rm int2
+  f77  -c prolbelin.f
+  f77 -o int2  prolbelin.o ../prini.o ../lotaplot.o ../grmsol.o \
+               ../prolcrea.o ../legeexps.o ../proquadr.o ../orthom.o
+  int2
+
+
+

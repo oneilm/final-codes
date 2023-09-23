@@ -1,0 +1,8 @@
+  rm wandquad.o
+  rm int2
+  f77 -c wandquad.f
+  f77 -o int2  wandquad.o ../prini.o ../lotaplot.o triaadap_notest.o
+  int2
+
+
+

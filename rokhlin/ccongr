@@ -1,0 +1,5 @@
+  rm ccongr.o
+  rm int2
+  f77  -c ccongr.f
+  f77  -o int2  ccongr.o ../prini.o
+  int2

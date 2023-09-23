@@ -1,0 +1,9 @@
+  rm cjaceig.o
+  rm int2
+  f77 -c cjaceig.f
+  f77 -o int2  cjaceig.o ../prini.o ../csvdpiv.o \
+               ../trplopen.o ../jaceig.o 
+  int2
+
+
+

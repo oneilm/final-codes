@@ -1,0 +1,11 @@
+  rm blind_bld.o
+  rm int2
+  f77  -c blind_bld.f
+  f77 -o int2  blind_bld.o ../prini.o ../hank103.o \
+               ../cadapgau.o ../quaplot.o \
+               ../legeexps.o ../cleastsq.o \
+               ../csvdpiv.o ../durdec.o
+  int2
+
+
+

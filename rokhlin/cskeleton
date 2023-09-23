@@ -1,0 +1,8 @@
+  rm cskeleton.o
+  rm int2
+  f77  -fast  -c cskeleton.f
+  f77 -o int2  cskeleton.o ../prini.o ../ncleastsq.o
+  int2
+
+
+

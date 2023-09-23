@@ -1,0 +1,5 @@
+  rm cmconr.o
+  rm int2
+  f77  -c cmconr.f
+  f77  -o int2  cmconr.o ../prini.o
+  int2

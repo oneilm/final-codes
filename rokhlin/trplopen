@@ -1,0 +1,8 @@
+  rm trplopen.o
+  rm int2
+  f77  -c trplopen.f
+  f77 -o int2  trplopen.o ../prini.o 
+  int2
+
+
+

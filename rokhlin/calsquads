@@ -1,0 +1,7 @@
+  rm calsquads.o
+  rm int2
+  f77 -c calsquads.f
+  f77 -o int2  calsquads.o ../prini.o  ../legeexps.o ../corthom.o \
+               ../cnestexs.o ../cmvecsvd.o ../cadapgaum.o \
+		../cadapgau.o ../lotaplot.o ../calsvcmb.o
+  int2

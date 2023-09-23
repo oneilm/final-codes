@@ -1,0 +1,5 @@
+  rm fourlog.o
+  rm int2
+  f77 -c fourlog.f
+  f77  -o int2  fourlog.o ../prini.o ../adapgaus.o
+  int2

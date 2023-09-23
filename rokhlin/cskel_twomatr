@@ -1,0 +1,12 @@
+  rm cskel_twomatr.o
+  rm int2
+  f77 -c cskel_twomatr.f
+  f77 -o int2 cskel_twomatr.o ../prini.o ../quaplot.o \
+               ../trplopen.o ../sortanyn.o  \
+               ../hank103.o ../jy01rea.o \
+               ../svdpivot.o ../nrleastsq.o ../ncleastsq.o \
+               ../csvdpiv.o
+  int2
+
+
+

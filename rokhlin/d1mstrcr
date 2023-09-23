@@ -1,0 +1,9 @@
+  rm d1mstrcr.o
+  rm int2
+  f77 -fast -c d1mstrcr.f
+  f77 -o int2  d1mstrcr.o ../prini.o ../trplopen.o ../quaplot.o \
+                         ../rsortanyn.o ../sortanyn.o
+  int2
+
+
+

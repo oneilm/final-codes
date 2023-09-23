@@ -1,0 +1,9 @@
+  rm cd2nest_expand.o
+  rm int2
+  f77 -fast -c cd2nest_expand.f 
+  f77  -o int2  cd2nest_expand.o ../prini.o ../quaplot.o  \
+                ../cadapgau.o ../ch2dinit.o \
+                ../trplopen.o
+  int2
+
+

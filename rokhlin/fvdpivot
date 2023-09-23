@@ -1,0 +1,8 @@
+  rm fvdpivot.o
+  rm int2
+  f77  -fast -c fvdpivot.f
+  f77 -o int2  fvdpivot.o ../prini.o ../bidiag_svd.o
+  int2
+
+
+

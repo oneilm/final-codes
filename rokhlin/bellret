@@ -1,0 +1,8 @@
+  rm bellret.o
+  rm int2
+  f77  -c bellret.f
+  f77 -o int2  bellret.o ../prini.o  ../lotaplot.o ../durdec.o
+  int2
+
+
+

@@ -1,0 +1,8 @@
+  rm ccaunon.o
+  rm int2
+  f77  -c ccaunon.f
+  f77 -o int2  ccaunon.o ../prini.o ../legeexps.o ../lotaplot.o 
+  int2
+
+
+

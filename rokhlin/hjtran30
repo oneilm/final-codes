@@ -1,0 +1,5 @@
+  rm hjtran30.o
+  rm int2
+  f77  -c hjtran30.f
+  f77 -o int2  hjtran30.o hjtran31.o ../second.o 
+  int2

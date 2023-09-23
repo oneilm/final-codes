@@ -1,0 +1,8 @@
+  rm qneval.o
+  rm int2
+  f77  -c qneval.f
+  f77 -o int2  qneval.o ../prini.o
+  int2
+
+
+

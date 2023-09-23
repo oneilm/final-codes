@@ -1,0 +1,10 @@
+  rm trpinit.o
+  rm int2
+  f77 -c trpinit.f
+  f77 -o int2  trpinit.o ../prini.o  ../lotaplot.o   \
+                  ../trplopen.o ../adapgaum.o ../wandquad.o \
+                  ../lotatime.o ../triaadam.o
+  int2
+
+
+

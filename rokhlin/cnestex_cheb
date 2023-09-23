@@ -1,0 +1,8 @@
+  rm cnestex_cheb.o
+  rm int2
+  f77 -c cnestex_cheb.f
+  f77 -o int2  cnestex_cheb.o ../prini.o ../chebexps.o
+  int2
+
+
+

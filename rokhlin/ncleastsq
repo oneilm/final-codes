@@ -1,0 +1,8 @@
+  rm ncleastsq.o
+  rm int2
+  f77 -fast  -c ncleastsq.f
+  f77 -o int2  ncleastsq.o ../prini.o ../lotatime.o ../csvdpiv.o
+  int2
+
+
+

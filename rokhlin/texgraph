@@ -1,0 +1,5 @@
+  rm texgraph.o
+  rm int2
+  f77  -c texgraph.f
+  f77  -o int2  texgraph.o ../prini.o 
+  int2

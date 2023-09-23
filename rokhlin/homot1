@@ -1,0 +1,11 @@
+  rm homot1.o
+  rm int2
+  f77 -O -c homot1.f
+  f77 -o int2  homot1.o ../prini.o ../qrdpivot.o ../legeexps.o  \
+               ../mvecsvd.o ../lotaplot.o ../trplopen.o \
+                ../lotatime.o ../grmsol.o \
+               ../allsvcmb.o
+  int2
+
+
+

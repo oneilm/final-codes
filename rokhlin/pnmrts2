@@ -1,0 +1,5 @@
+  rm int2
+  rm pnmrts.o
+  f77 -O -c pnmrts.f
+  f77 -o int2  pnmrts.o ../prini.o  ../lotaplot.o ../legeexps.o
+  int2

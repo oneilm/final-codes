@@ -1,0 +1,8 @@
+  rm qhlogev2.o
+  rm int2
+  f77  -c qhlogev2.f
+  f77 -o int2  qhlogev2.o ../prini.o ../legeexps.o ../adapgaus.o
+  int2
+
+
+

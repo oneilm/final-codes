@@ -1,0 +1,5 @@
+  rm gammas4.o
+  rm int2
+  f77 -c gammas4.f
+  f77 -o int2  gammas4.o ../prini.o
+  int2

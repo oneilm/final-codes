@@ -1,0 +1,11 @@
+  rm slepapin.o
+  rm int2
+  gfortran -c slepapin.f
+  gfortran -o int2  slepapin.o ../bin/prini.o ../bin/quaplot.o \
+               ../bin/legeexps.o ../bin/prolcrea.o ../bin/orthom.o \
+               ../bin/proquadr.o \
+               ../bin/qrsolve.o
+  int2
+
+
+

@@ -1,0 +1,8 @@
+  rm test77.o
+  rm int2
+  f77 -fast -c cnestexs.f
+  f77 -o int2  cnestexs.o ../prini.o ../legeexps.o  ../lotatime.o
+  int2
+
+
+

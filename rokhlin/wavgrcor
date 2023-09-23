@@ -1,0 +1,8 @@
+  rm wavgrcor.o
+  rm int2
+  f77  -c wavgrcor.f
+  f77 -o int2  wavgrcor.o ../prini.o rsplot.o
+  int2
+
+
+

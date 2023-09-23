@@ -1,0 +1,7 @@
+  rm constcoef_crea.o
+  rm int2
+  f77    -c constcoef_crea.f
+  f77  -o int2  constcoef_crea.o ../prini.o ../legeexps.o 
+  int2
+
+

@@ -1,0 +1,5 @@
+  rm ifunscom.o
+  rm int2
+  f77  -c ifunscom.f
+  f77  -o int2  ifunscom.o ../prini.o 
+  int2

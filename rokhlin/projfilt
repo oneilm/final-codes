@@ -1,0 +1,8 @@
+  rm projfilt.o
+  rm int2
+  f77 -c projfilt.f
+  f77 -o int2  projfilt.o ../prini.o ../lotaplot.o ../durdec.o
+  int2
+
+
+

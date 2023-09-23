@@ -1,0 +1,9 @@
+  rm chebtorat.o
+  rm int2
+  f77 -c chebtorat.f
+  f77 -o int2  chebtorat.o ../prini.o ../quaplot.o \
+               ../chebexps.o
+  int2
+
+
+

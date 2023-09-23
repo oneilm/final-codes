@@ -1,0 +1,8 @@
+  rm hank102.o
+  rm int2
+  f77 -fast -c hank102.f
+  f77 -o int2  hank102.o ../prini.o ../hank101.o ../lotatime.o
+  int2
+
+
+

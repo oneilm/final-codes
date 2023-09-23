@@ -1,0 +1,5 @@
+  rm cadapgaum.o
+  rm int2
+  f77 -c cadapgaum.f
+  f77 -o int2  cadapgaum.o ../prini.o ../legeexps.o
+  int2

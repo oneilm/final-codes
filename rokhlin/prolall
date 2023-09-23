@@ -1,0 +1,9 @@
+  rm prolall.o
+  rm int2
+  f77  -c prolall.f
+  f77 -o int2  prolall.o ../prini.o ../lotaplot.o prolcrea_notest.o \
+     ../legeexps.o 
+  int2
+
+
+

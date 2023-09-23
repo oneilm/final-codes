@@ -1,0 +1,8 @@
+  rm inteeval135.o
+  rm int2
+  f77 -fast -c inteeval135.f 
+  f77  -o int2  inteeval135.o ../prini.o ../quaplot.o  \
+                ../adapgaus.o ../chebexps.o ../leastsq.o
+  int2
+
+

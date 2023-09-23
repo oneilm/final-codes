@@ -1,0 +1,8 @@
+  rm chebexps.o
+  rm int2
+  f77   -c chebexps.f
+  f77 -o int2  chebexps.o ../prini.o
+  int2
+
+
+

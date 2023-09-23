@@ -1,0 +1,14 @@
+  rm square_skeleton.o
+  rm int2
+  f77 -fast -c square_skeleton.f
+  f77 -fast -o int2  square_skeleton.o ../prini.o ../quaplot.o \
+                       ../trplopen.o ../csvdpiv.o \
+                       ../lotatime.o ../square_basis.o \
+                       ../hank103.o ../cqrsolve.o \
+                       ../legeexps.o  ../sortanyn.o \
+                       ../cskeleton.o ../ncleastsq.o
+ 
+  int2
+
+
+

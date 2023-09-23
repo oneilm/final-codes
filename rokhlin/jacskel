@@ -1,0 +1,8 @@
+  rm jacskel.o
+  rm int2
+  f77 -fast -c jacskel.f
+  f77 -o int2  jacskel.o ../prini.o 
+  int2
+
+
+

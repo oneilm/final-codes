@@ -1,0 +1,3 @@
+  cp fort.21 f.tex
+  latex f
+  xdvi f

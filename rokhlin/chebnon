@@ -1,0 +1,5 @@
+  rm chebnon.o
+  rm int2
+  f77  -c chebnon.f
+  f77  -o int2  chebnon.o ../prini.o 
+  int2

@@ -1,0 +1,9 @@
+  rm lesqinit.o
+  rm int2
+  f77 -c lesqinit.f
+  f77 -o int2  lesqinit.o ../prini.o ../lotaplot.o \
+               ../legeexps.o ../svdpivot.o
+  int2
+
+
+

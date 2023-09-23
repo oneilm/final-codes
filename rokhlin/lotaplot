@@ -1,0 +1,5 @@
+  rm telotaplot.o
+  rm int2
+  f77 -c lotaplot.f
+  f77  -o int2 lotaplot.o ../prini.o 
+  int2

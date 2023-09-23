@@ -1,0 +1,8 @@
+  rm alptrap.o
+  rm int2
+  f77  -O -c alptrap.f
+  f77 -o int2  alptrap.o ../prini.o 
+  int2
+
+
+

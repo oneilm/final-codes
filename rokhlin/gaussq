@@ -1,0 +1,5 @@
+  rm gaussq.o
+  rm int2
+  f77         -c gaussq.f
+  f77         -o int2  gaussq.o    prini.o
+  int2

@@ -1,0 +1,8 @@
+  rm hest.o
+  rm int2
+  f77 -c hest.f
+  f77 -o int2  hest.o 
+  int2
+
+
+

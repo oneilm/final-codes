@@ -1,0 +1,9 @@
+  rm ccauadap.o
+  rm int2
+  f77  -c ccauadap.f
+  f77 -o int2  ccauadap.o ../prini.o ../legeexps.o \
+   ../lotaplot.o ../jy01rea.o 
+  int2
+
+
+

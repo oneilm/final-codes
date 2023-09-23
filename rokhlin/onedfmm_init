@@ -1,0 +1,8 @@
+  rm onedfmm_init.o
+  rm int2
+  fort77 -O3 -c onedfmm_init.f
+  fort77 -o int2  onedfmm_init.o ../prini.o ../legeexps.o 
+  int2
+
+
+

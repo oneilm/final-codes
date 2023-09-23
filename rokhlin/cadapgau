@@ -1,0 +1,8 @@
+  rm cadapgau.o
+  rm int2
+  gfortran -c cadapgau.f
+  gfortran -o int2  cadapgau.o ../bin/prini.o ../bin/legeexps.o
+  int2
+
+
+

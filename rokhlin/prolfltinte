@@ -1,0 +1,10 @@
+  rm prolfltinte.o
+  rm int2
+  f77 -fast -c prolfltinte.f
+  f77 -o int2  prolfltinte.o ../prini.o ../quaplot.o \
+               ../legeexps.o ../prolcrea.o ../proquadr.o \
+               ../orthom.o ../qrsolve.o ../prolfili.o ../fileflush.o
+  int2
+
+
+

@@ -1,0 +1,9 @@
+  rm grmskel.o
+  rm int2
+  f77 -fast -c grmskel.f
+  f77 -o int2  grmskel.o ../prini.o ../lotatime.o ../rskeleton.o \
+                        ../nrleastsq.o ../svdpivot.o ../jacskel.o
+  int2
+
+
+

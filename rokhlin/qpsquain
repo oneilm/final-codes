@@ -1,0 +1,5 @@
+  rm qpsquain.o
+  rm int2
+  f77 -c qpsquain.f
+   f77 -o int2  qpsquain.o ../prini.o
+  int2

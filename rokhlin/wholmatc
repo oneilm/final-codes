@@ -1,0 +1,11 @@
+  rm wholmatc.o
+  rm int2
+  f77 -c wholmatc.f
+  f77 -o int2  wholmatc.o ../prini.o ../lotaplot.o ../legeexps.o \
+          ../protaper.o ../o1r20qua.o ../probexps.o \
+            ../o3rrdall.o ../csvdpiv.o ../corthom.o \
+          ../hank101.o
+  int2
+
+
+

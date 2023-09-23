@@ -1,0 +1,9 @@
+  rm allsvcmb.o
+  rm int2
+  f77 -c allsvcmb.f
+  f77 -o int2  allsvcmb.o ../prini.o  ../legeexps.o   \
+               ../mvecsvd.o  ../lotaplot.o ../orthom.o
+  int2
+
+
+

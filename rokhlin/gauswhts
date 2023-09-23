@@ -1,0 +1,8 @@
+  rm gauswhts.o
+  rm int2
+  f77  -c gauswhts.f
+  f77 -o int2  gauswhts.o ../prini.o 
+  int2
+
+
+

@@ -1,0 +1,8 @@
+  rm cmvecpsvd.o
+  rm int2
+  f77 -c cmvecpsvd.f
+  f77 -o int2  cmvecpsvd.o ../prini.o ../csvdpiv.o 
+  int2
+
+
+

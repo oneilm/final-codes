@@ -1,0 +1,8 @@
+  rm test24.o
+  rm int2
+  f77  -c test24.f
+  f77 -o int2  test24.o ../prini.o chebexps.o ../rsplot.o
+  int2
+
+
+

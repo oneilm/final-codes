@@ -1,0 +1,5 @@
+  rm cjseval.o
+  rm int2
+  f77 -fast -c cjseval.f
+  f77  -o int2  cjseval.o ../prini.o ../jb.o
+  int2

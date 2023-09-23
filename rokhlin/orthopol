@@ -1,0 +1,10 @@
+  rm orthopol.o
+  rm int2
+  f77 -fast -c orthopol.f 
+  f77 -o int2  orthopol.o  ../prini.o ../lotaplot.o \
+                         ../legeexps.o \
+                         ../triaadap.o ../svdpivot.o
+  int2
+
+
+

@@ -1,0 +1,8 @@
+  rm rsortanyn.o
+  rm int2
+  f77  -c rsortanyn.f
+  f77 -o int2  rsortanyn.o ../prini.o ../quaplot.o 
+  int2
+
+
+

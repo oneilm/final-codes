@@ -1,0 +1,7 @@
+  rm corthom.o
+  rm int2
+  f77    -c corthom.f
+  f77  -o int2  corthom.o ../prini.o
+  int2
+
+

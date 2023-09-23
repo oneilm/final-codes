@@ -1,0 +1,10 @@
+  rm sllinit.o
+  rm int2
+  f77  -fast -c sllinit.f
+  f77 -o int2   sllinit.o ../prini.o ../lotaplot.o \
+                ../prolcrea.o ../legeexps.o   \
+                 ../svdpivot.o ../lesqinit.o
+  int2
+
+
+

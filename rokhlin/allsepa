@@ -1,0 +1,8 @@
+  rm allsepa.o
+  rm int2
+  f77  -c allsepa.f
+  f77 -o int2  allsepa.o ../prini.o ../rsplot.o
+  int2
+
+
+

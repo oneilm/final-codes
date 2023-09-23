@@ -1,0 +1,8 @@
+  rm arbgauss.o
+  rm int2
+  f77  -c arbgauss.f
+  f77 -o int2  arbgauss.o ../prini.o  ../adapgaus.o
+  int2
+
+
+

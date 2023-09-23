@@ -1,0 +1,8 @@
+  rm sortrear.o
+  rm int2
+  f77  -O -c sortrear.f
+  f77 -o int2  sortrear.o ../prini.o 
+  int2
+
+
+

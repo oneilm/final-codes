@@ -1,0 +1,8 @@
+  rm adapgaum.o
+  rm int2
+  f77  -c adapgaum.f
+  f77 -o int2  adapgaum.o ../prini.o ../legeexps.o
+  int2
+
+
+

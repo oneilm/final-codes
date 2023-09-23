@@ -1,0 +1,9 @@
+  rm allqrbld.o
+  rm int2
+  f77  -c allqrbld.f
+  f77 -o int2  allqrbld.o ../prini.o ../lotaplot.o qrdpivot_notest.o \
+               ../legeexps.o 
+  int2
+
+
+

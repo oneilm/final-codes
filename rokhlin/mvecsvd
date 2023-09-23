@@ -1,0 +1,8 @@
+  rm mvecsvd.o
+  rm int2
+  f77 -c mvecsvd.f
+  f77 -o int2  mvecsvd.o ../prini.o ../qrdpivot.o ../legeexps.o 
+  int2
+
+
+

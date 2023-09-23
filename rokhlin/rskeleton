@@ -1,0 +1,8 @@
+  rm rskeleton.o
+  rm int2
+  f77  -fast  -c rskeleton.f
+  f77 -o int2  rskeleton.o ../prini.o ../svdpivot.o ../nrleastsq.o
+  int2
+
+
+

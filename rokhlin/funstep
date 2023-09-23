@@ -1,0 +1,8 @@
+  rm funstep.o
+  rm int2
+  f77  -O -c funstep.f
+  f77 -o int2  funstep.o ../prini.o rsplot.o
+  int2
+
+
+

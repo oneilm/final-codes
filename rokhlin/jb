@@ -1,0 +1,5 @@
+  rm jb.o
+  rm int2
+  f77 -c jb.f
+  f77 -o int2 jb.o ../prini.o ../rsplot.o
+  int2

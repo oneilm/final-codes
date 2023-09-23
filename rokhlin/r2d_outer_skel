@@ -1,0 +1,12 @@
+  rm r2d_outer_skel.o
+  rm int2
+  f77  -c r2d_outer_skel.f
+  f77 -o int2  r2d_outer_skel.o ../prini.o ../quaplot.o \
+                       ../trplopen.o ../r2dstrcr.o \
+                       ../sortanyn.o ../lotatime.o \
+                       ../square_basis.o ../legeexps.o \
+                       ../csvdpiv.o ../ncleastsq.o
+  int2
+
+
+

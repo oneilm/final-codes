@@ -1,0 +1,8 @@
+  rm anaresa.o
+  rm int2
+  f90  -c anaresa.f
+  f90 -o int2  anaresa.o ../bin/prini.f ../bin/lotaplot.f ../bin/legeexps.f
+  int2
+
+
+

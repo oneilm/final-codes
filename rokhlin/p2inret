@@ -1,0 +1,9 @@
+  rm p2inret.o
+  rm int2
+  f77  -c p2inret.f
+  f77 -o int2  p2inret.o ../prini.o  ../lotaplot.o   \
+                  ../legeexps.o p2data3.o ../svdpivot.o
+  int2
+
+
+

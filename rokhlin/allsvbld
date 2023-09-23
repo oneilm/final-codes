@@ -1,0 +1,10 @@
+  rm allsvbld.o
+  rm int2
+  f77 -c allsvbld.f
+  f77 -o int2  allsvbld.o ../prini.o ../adapgaum.o \
+               ../qrdpivot.o ../legeexps.o  ../mvecsvd.o \
+               ../lotaplot.o
+  int2
+
+
+

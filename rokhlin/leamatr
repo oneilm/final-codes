@@ -1,0 +1,5 @@
+  rm leamatr.o
+  rm int2
+  f77 -c leamatr.f
+   f77 -o int2  leamatr.o ../prini.o ../svdpivot.o
+  int2

@@ -1,0 +1,8 @@
+  rm qrdpivot.o
+  rm int2
+  f77  -c qrdpivot.f
+  f77 -o int2  qrdpivot.o ../prini.o ../svdpivot.o
+  int2
+
+
+

@@ -1,0 +1,9 @@
+  rm inteeval135.o
+  rm int2
+  f77 -Kfast -c -A q inteeval135.f  -f s
+  f77  -o int2 -static -A q inteeval135.f ../prini.f \
+                ../quaplot.f  \
+                ../adapgaus.f ../chebexps.f \
+                 ../leastsq.f  -f s
+  int2
+

@@ -1,0 +1,9 @@
+  rm cleast_trans.o
+  rm int2
+  f77 -c cleast_trans.f
+  f77 -o int2  cleast_trans.o ../prini.o ../csvdpiv.o \
+               ../jaceig.o ../cjaceig.o
+  int2
+
+
+

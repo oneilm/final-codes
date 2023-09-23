@@ -1,0 +1,5 @@
+  rm cleamatr.o
+  rm int2
+  f77 -c cleamatr.f
+  f77 -o int2  cleamatr.o ../prini.o ../csvdpiv.o ../lotatime.o
+  int2

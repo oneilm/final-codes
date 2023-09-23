@@ -1,0 +1,9 @@
+  rm rstauada.o
+  rm int2
+  f77  -c rstauada.f
+  f77 -o int2  rstauada.o ../prini.o ../legeexps.o  \
+  ../second.o ../lotaplot.o
+  int2
+
+
+

@@ -1,0 +1,10 @@
+  rm unidiscr.o
+  rm int2
+  f77  -fast -c unidiscr.f
+  f77 -o int2  unidiscr.o ../prini.o ../lotaplot.o \
+                ../protaper.o ../legeexps.o  \
+               ../qhlogev2.o ../leastsq.o
+  int2
+
+
+

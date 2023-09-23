@@ -1,0 +1,8 @@
+  rm nrleastsq.o
+  rm int2
+  f77 -fast  -c nrleastsq.f
+  f77 -o int2  nrleastsq.o ../svdpivot.o ../prini.o ../lotatime.o
+  int2
+
+
+

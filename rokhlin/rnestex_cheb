@@ -1,0 +1,8 @@
+  rm rnestex_cheb.o
+  rm int2
+  f90 -c rnestex_cheb.f
+  f90 -o int2  rnestex_cheb.o ../bin/prini.f ../bin/chebexps.f
+  int2
+
+
+

@@ -1,0 +1,12 @@
+  rm test129.o
+  rm int2
+  f77 -fast -c test129.f 
+  f77 -o int2  test129.o  ../../prini.o ../../lotaplot.o \
+                         ../../legeexps.o ../../orthopol.o \
+                         ../../triaadap.o ../../svdpivot.o ../../qrsolve.o \
+                         ../../allsvcmb.o ../..//mvecsvd.o ../../orthom.o \
+                         ../../leastsq.o
+  int2
+
+
+

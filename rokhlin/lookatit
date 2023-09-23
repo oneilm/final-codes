@@ -1,0 +1,463 @@
+1.
+The muller polynomial root-finder is in the file
+test13.f. An exact copy of it can be found in the file muller.f.
+The file test13.f can be run by means of the command file test13.
+
+2.
+A Gram-Schmidt inverter for complex *16 matrices is in corthom.f,
+together with the debugging code. It can be run by means of the
+command file corthom.
+
+3.
+A Gram-Schmidt inverter for real *8 matrices is in orthom.f,
+tohether with the debugging code. It can be run by means of the
+command file orthom.
+
+4.
+A subroutine constructing the Chebychev quadratures is in the 
+file chebwhts.f, together with the debugging code. 
+
+5.
+A subroutine constructing the matrices converting 
+values at the Chebychev nodes of a Chebychev expansion 
+into its coefficients (and back) is in the file chebexps.f, 
+together with the debugging code. This subroutine
+also produces the weights of the Chebychev quadrature;
+the other subroutine in this file calculates the value
+and the derivative of a chebychev expansion at a point.
+
+6.
+Page's adaptive gaussian quadrature routine is in the file
+gausspk.f, together with the debugging (testing) code.
+It can be run by calling the routine gausspk
+
+7.
+A pair of subroutines alptrap, alptrap2 are in the file test102.f,
+together with their debugging code. These subroutines implement 
+Alpert's end-point corrected trapezoidal quadrature rules for 
+smooth functions on the interval. They implement rules of orders
+2,4,6,8,10,12.
+
+8.
+A subroutine funstep is in the file funstep.f. It constructs a smooth 
+(c^{\infty}) elementary function f such that 
+   1. c^{\infty} on the real line. 
+   2. f(x)=1 for all x .le. 0
+   3. f(x)=0 for all x .ge. \pi/2
+
+9.
+My adaptive Chebychev quadrature code is in 
+the file adapcheb.f, together with the debugging code.
+
+10.
+My adaptive Gaussian quadrature code  for real functions is 
+in the file adapgaus.f, together with the debugging code.
+
+11.
+My adaptive Gaussian quadrature code  for complex functions is 
+in the file cadapgau.f, together with the debugging code.
+
+12.
+A complex conjugate gradient routine is in the file ccongr.f,
+together with the debugging code.
+
+13.
+A real conjugate gradient algorithm is in the file congra.f,
+together with the debugging routine.
+
+14.
+A complex conjugate residual algorithm is in the file cmconr.f,
+together with the debugging routine.
+
+15.
+A subroutine implementing the end-point corrected trapezoidal rule 
+for the evaluation of the time integration for the potential 
+theory for the wave equation in two dimensions is in the file 
+wavgrcor.f, together with the debugging code.
+
+16.
+A subroutine for the rapid evaluation of the Bessel functions 
+j0, j1, y0, y1 of the real argument is in the file jy01rea.f, 
+together with the debugging routines.
+
+17.
+A slow but accurate function for the evaluation of the 
+gamma function is in the file gammas4.f, together with the 
+debugging routines.
+
+18.
+The code constructing the 6 classical gaussian quadratures is in
+the file gaussq.f (obtained from Golub years and years ago). 
+This version uses a portable gamma function routine, unlike the 
+original.
+
+18a.
+The code constructing the 6 classical gaussian quadratures 
+in extended precision is in the file gauq16.f (obtained from 
+Golub and modified years and years ago). This version uses a
+portable gamma function routine, unlike the original.
+
+19.
+The code constructing the gaussian weights and nodes on the 
+interval [-1,1] is in the file gauswhts.f, together with 
+the debugging code. The code is less general than that in 
+gaussq.f, but it is very short, transparent, and portable.
+
+20.
+The subroutine resampling (in an equispaced manner) an analytically
+specified curve is in the file anaresa.f, together with the
+debugging code.
+
+21.
+The subroutine resampling (in an equispaced manner) a user-specified
+curve (the user specifies it as a collection of points in the plane)
+is in the file rsresa.f, together with the debugging code.
+
+22.
+The subroutine sortanyn sorting an array of integers is in the 
+file sortanyn.f, together with the debugging code.
+
+23.
+The subroutine d2mallb constructing the quad-tree structure
+for the FMM in two dimensions is in the file d2mallb.f, together
+with the debugging code.
+
+24.
+The subroutine d2mudv uses the Jacobi iterations to construct the 
+singular value decomposition for a dense REAL *8  matrix. It is 
+in the file d2mudv.f, together with the debugging code. 
+
+25.
+The subroutine d2mcudv uses the Jacobi iterations to construct the 
+singular value decomposition for a dense COMPLEX *16 matrix. It is 
+in the file d2mudv.f, together with the debugging code. 
+
+26.
+The subroutine d2mcomp for the recursive compression of a matrix can
+be found in the file d2mcomp.f, together with the debugging codes.
+It avoids the construction of the whole matrix by doing a recursive
+QR decomposition of a matrix of large dimensionality and low rank.
+
+27.
+The subroutine d2mstrcr for the construction of the complete 
+adaptive multipole logical structure can be found in the file
+d2mstrcr.f, together with the debugging code. 
+
+28.
+The subroutine (written by Grishka) for the accurate and reasonably
+rapid evaluation of the Hankel functions H_0, H_1 of the complex 
+argument can be found in the file hank71.f. This file contains no
+debugging code.
+
+29.
+The subroutine for the chebychev approximation of functions tabulated
+at non-chebychev nodes can be found in the file chebnon.f, together
+with the debugging code.
+
+30.
+The subroutine svdpivot calculating the singular value decomposition
+of a real *8 matrix can be found in the file svdpivot.f, together with
+the debugging code. It uses a combination of the pivoted Gram-Schmidt
+and the Jacobi rotations, and is supposed to be quite efficient when
+the matrix is far from being full-rank. This subroutine is quite a
+glutton for memory, and should only be used for problems that are not
+too large. Otherwise, see D2MCOMP.f
+
+30a.
+The subroutine qsvdpiv calculating the singular value decomposition
+of a real *16 matrix can be found in the file qsvdpiv.f, together with
+the debugging code. It uses a combination of the pivoted Gram-Schmidt
+and the Jacobi rotations, and is supposed to be quite efficient when
+the matrix is far from being full-rank. This is a real *16 version of
+the subroutine svdpivot (see above). 
+
+31.
+A REAL *16 subroutine constructing the matrices converting 
+values at the Chebychev nodes of a Chebychev expansion 
+into its coefficients (and back) is in the file qchfunde.f,
+together with the debugging code. This subroutine
+also produces the weights of the Chebychev quadrature;
+the other subroutine in this file calculates the value
+and the derivative of a chebychev expansion at a point.
+Note that this is the REAL *16 version of the subroutine
+chebexps (see above). Note also that there are differences 
+between this routine and chebexps, since SUN has a bug in the 
+calculation of the sine and cosine functions in REAL *16.
+
+32.
+A REAL *16 subroutine qerrfun evaluating the error function erf is 
+in the file qerrfun.f, together with the debugging code. The other 
+user-accessible subroutine in that file is qerrfunc, evaluating the
+second error function erfc(x)=1-erf(x).
+
+33.
+A subroutine constructing the matrices converting values at 
+the Gaussian nodes of a Gaussian expansion into its coefficients 
+(and back) is in the file legeexps.f, together with the debugging 
+code. This subroutine also produces the nodes and weights of the 
+Gaussian quadrature; the other subroutine in this file calculates
+the value and the derivative of a gaussian expansion at a point.
+Another pair of subroutines produces the Legendre expansions of the
+indefinite integral and the derivative of the user-specified Legendre
+expansion.
+
+34.
+The subroutines that pack FORTRAN-produced data into FORTRAN
+DATA atatements are in the files qdataarr.f, qdataard.f. The 
+subroutine qdataarr prodices data with the extended precision,
+and qdataard produced data with the double precision. Both use
+extended precision data for input.
+
+35.
+The extended precision subroutine qpsquare calculating the 
+orthogonal polynomials on the standard square is in the file 
+qpsquare.f, together with the debugging code. It calculates the 
+first 100 orthogonal polynomials.
+
+36.
+The double precision subroutine dpsquare calculating the 
+orthogonal polynomials on the standard square is in the file 
+dpsquare.f, together with the debugging code. It calculates the 
+first 100 orthogonal polynomials.
+
+37.
+The extended precision subroutine qpsquain calculating the 
+orthogonal polynomials of 1/z on the standard square is in the file 
+qpsquain.f, together with the debugging code. It calculates the 
+first 100 orthogonal polynomials.
+
+38.
+The double precision subroutine dpsquain calculating the 
+orthogonal polynomials of 1/z on the standard square is in the file 
+dpsquain.f, together with the debugging code. It calculates the 
+first 100 orthogonal polynomials.
+
+39.
+The subroutine csvdpiv calculating the singular value decomposition
+of a complex matrix can be found in the file csvdpiv.f, together with
+the debugging code. it uses a combination of the pivoted Gram-Schmidt
+and the Jacobi rotations, and is supposed to be quite efficient when
+the matrix is far from being full-rank. This subroutine is quite a
+glutton for memory, and should only be used for problems that are not
+too large.
+
+40.
+The subroutine hank101 calculating the Hankel functions H_0, H_1
+of a complex argument is located in the file hank101.f, together
+with the debugging code. hank101 evaluates H_0(z), H_1(z) for 
+arbitrary z in the complex plane, unless the exponent overflow 
+occurs. It gives relative precision of 0.5E-14 everywhere, and is
+reasonably fast. However, the code has not been optimized, and 
+a simple removal of double calls to functions, etc. should speed
+it up by a factor of 2 or so.
+
+41. The subroutine d2msvd in the file d2msvd.f constructs the 
+compressing singular value decomposition of a real *8 matrix. This
+subroutine should be used for large matrices whose rank is relatively
+small. d2msvd avoids the construction of the whole big matrix, 
+performing the whole process recursively. The file d2msvd.f also
+contains debugging subroutines.
+
+42. The subroutine legexrts in the file legexrts. it attempts to find
+all roots of a user-specified function located on the interval [a,b]
+the function is specified by its values tabulated at the gaussian
+nodes on that same interval [a,b]. evaluating this function at these
+nodes is the user's responsibility; however, the gaussian nodes on the
+interval [-1,1] can be obtained by calling the subroutine legeexps
+(see). The file legexrts.f also contains debugging code.
+
+43. The subroutine clagreva in the file clagreva lagrange interpolates 
+a function f tabulated at the nodes t(i) in the complex plane to obtain
+the value of f at the point x. The file clagreva  also contains 
+debugging code.
+
+44. The subroutine lagrcoef in the file lagrcoef.f constructs 
+interpolation coiefficients connecting the values of a function
+f tabulated at the nodes t(i) on the real line  with the value of f at
+the real point x. The file lagrcoef.f does not contain ant debugging 
+code, with all that follows fro this fact.
+
+45. The subroutine gaubeam in the file gaubeam.f evaluates hankel 
+functions H_0(z), H_1(z) scaled by an exponential. The purpose of
+this subroutine is to prevent overflow in the calculations with
+Gaussian beams. In reality, it uses a slightly changed (and renamed,
+thank God) version of the subroutine hank101 (see).
+
+46. The subroutine ifunscom in the file ifunscom.f evaluates all 
+scaled modified Bessel functions e^{-x} \cdot I_m (x) of an argument x.
+It uses the recursuion (up and down, and scaling), and is reasonably 
+efficient, but not too efficeint.
+
+46. The subroutine jbfun in the file jb.f evaluates all 
+Bessel functions J_m (z) of a complex argument z.
+It uses the recursuion (up and down, and scaling), and is reasonably 
+efficient, but not too efficeint.
+
+47. The subroutine fourtmat constructing explicitly the matrix
+of DFT can be found in the file fourtmat.f. The same file contains
+the subroutine fourtint constructing the interpolating matrix
+from an equispaced grid to Gaussian one, and a few other (possibly)
+useful subroutines.
+
+48. The subroutine prolcrea evaluating the prolate spheroidal wave
+functions and various associated eigenvalues is in the file prolcrea.f,
+together with the debugging code. 
+
+49. The subroutine prolall builds the machinery necessary for the 
+extension of a band-limited function outside the interval on which
+it has been specified by the user. It is in the file prolall.f,
+together with the debugging code. Please note that this subroutine 
+needs the subroutines found in the file proleva.f (see).
+
+50. The subroutines leastsq1,leastsq2 are in the file leastsq.f,
+together with the debugging code. They use a version of the Gram-Schmidt
+process to solve a linear least squares problem (with real coefficients).
+
+51. The file triaadap.f contains the subroutine triaadap that evaluates 
+the integral of a function on a triangle via an adaptive nested tensor
+product Gaussian rule. The file also contains the debugging code.
+
+52. The files hjtran30.f, hjtran31.f contain a relatively final 
+version of the code designing the beam version of the translation
+operator in three dimensions. The code uses the numerically obtained 
+beam, in the more or less final version. The files also contains the 
+necessary debugging code. Note that the file hjtran31.f contains various 
+service subroutines used by the file hjtran30.f, that contains all the 
+ideologically sensitive material.
+
+53. The file ch2dinit.f contains a code for the evaluation of 
+two-dimensional Chebychev coefficients of a function tabulated at
+(tensor product) Chebychev nodes on a square in two dimensions.
+It also contains a code for the evaluation of a two-dimensional 
+Chebychev expansion at the Chebychev (tensor product) nodes on a 
+square in R^2, and for the evaluation of such an expansion at an
+individual point in R^2.
+    
+54. The file wandquad.f contains the subroutine wandquad providing
+wandzura's quadratures for functions on a triangle in the plane. 
+The quadratures are nearly Gaussian. The file also contains the
+necessary debugging code.
+
+55. The subroutines cleastsq, cleasts2 are in the file cleastsq.f,
+together with the debugging code. They use a version of the Gram-Schmidt
+process to solve a linear least squares problem (with complex 
+coefficients).
+
+56.
+The subroutine d3mstrcr for the construction of the complete 
+adaptive multipole logical structure in three dimensaions can be 
+found in the file d3mstrcr.f, together with the debugging code. 
+
+57.
+The subroutine ccauadap solving (adaptively) a system of non-stiff 
+complex ODEs is in the file ccauadap.f, together with the debugging code.
+The subroutine uses a spectral defferred correction scheme (of 
+arbitrary user-specifeid order) driven by the explicit Euler method.
+
+58.
+
+The file stauadap.f contains two subroutines stauadap, stauexp, 
+solving the Cauchy problem for a stiff system of complex ODEs 
+via an arbitrary order defferred correction scheme (driven by the
+implicit Euler iteration). The subroutine stauadap does not use 
+the extrapolation to insure the proper behavior at infinity. Thus, 
+it is limited to relatively low order schemes (for stiff problems; 
+for non-stiff ones, the subroutine ccauadap should be used). The 
+subroutine stauexp is the ultimate defferred correction subroutine 
+for stiff problems. It uses two defferred correction schemes, and 
+linearly combines ("extrapolates") them to obtain strong stiff 
+stability at infinity. The file cauadap.f also contains debugging 
+codes for both subroutines stauadap, stauexp.
+
+59.
+
+The file bellret.f contains the subroutine bellret evaluatin
+at the point x \in [0,1] a smooth step function, i.e. function 
+bell(x) such that 
+
+            | bell(x) | < eps,                                       (1)
+                                                                     
+for all x \leq 0, and
+
+            | bell(1) -1 | < eps,                                    (2)
+         
+for all x \geq 1; furthermore, 
+
+          bell(x)= \sum_{i=1}^{ncoss}
+          coefs(i) * cos((i-1)*(x*belllen+shift))                    (3)
+
+The claim to fame of the function bell :[0,1] \to R^1 is that 
+it has (approximately) the lowest frequency content of all
+functions satisfying the conditions (1),(2).
+
+The coefficients coefs (as well as parameters ncoss, 
+shift, bellen) must have been generated by a prior call to 
+the subroutine bellret, also in the file bellret.f
+
+
+60.
+The file pnmrts.f contains subroutines pnmini, pnmeva 
+for the evaluation of NORMALIZED Associated Legendre Functions 
+P_n^m at arbitrary points on the interval [-1,1], and the 
+subroutine pnmrts that finds the roots of functions P_n^m.
+
+61. 
+The file leamatr.f contains the subroutines leamatr, leamatll,
+leamatrr solving the least squares approximation problems for 
+matrices from both sides, from the left, and from the right, 
+respectively.
+
+62.
+The file qneval.f contains the subroutine qneval evaluating 
+(for the user-specified real x and integer n) the Legendre 
+functions Q_0, Q_1, ..., Q_n.
+
+63. 
+The file cgrmsol.f contains the subroutine cgrmsol, solving a 
+system of complex linear equations (with a signle right-hand
+side). It is a very short, primitive, and robust code.
+
+64.
+The file trplopen.f contains the subroutines trplopen, trpldot,
+trplpoint, trplline, trplwrt, used for plotting data in GNUPLOT
+-readable format. The subroutine in this file are much more
+flexible than those in the file lotapklot.
+
+66.
+The file p2inret.f contains subroutine for the construction of
+interpolation nodes (up to order 10) on the standard equilateral
+triangle, and also for the evaluation of orthogonal polynomials
+(also up to order 10) on that triangle. Pleae note that the 
+subroutines in this file use data they retrieve from the fairly 
+large subroutine p2data3 stored separately in the file p2data3.f
+
+67. 
+The file p2eval contains the subroutine p2eval, evaluating at 
+points in R^2 various polynomials orthogonal on the standard 
+equilateral triangle. This is a self-contained file, in the sense 
+that it contains the subroutine p2data3, storing the precomputed 
+coefficients to be used in the evaluation of orthogonal polynomials.
+Please note that this file does NOT contain a testing code.
+
+68. 
+The file triaadam.f contains the subroutine triaadam that evaluates 
+the integral of a vector-valued function on a triangle via an adaptive 
+nested tensor product Gaussian rule. The file also contains the debugging
+code.
+
+69. The file perilagr.f contains the subroutines perilagr and eqlagrev 
+interpolating (via standard Lagrange interpolation) a user-specified 
+function from the user-provided equispaced grid to the user-supplied 
+point x on the line. perilagr is the version of the scheme designed
+for the periodic case; in the non-periodic case, eqlagrev should be
+used.
+
+69. The file jaceig.f contains the subroutine jaceig that uses Jacobi 
+iterations to find the spectrum of a real symmetric matrix. It is a 
+primitive and robust code. It is also mercifully short. 
+
+70. The file cjaceig.f contains the subroutine jaceig that uses Jacobi 
+iterations to find the spectrum of a Hermitian matrix. It is a 
+primitive and robust code. It is also mercifully short. 
+
+

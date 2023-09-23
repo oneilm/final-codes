@@ -1,0 +1,8 @@
+  rm chebwhts.o
+  rm int2
+  f77   -c chebwhts.f
+  f77 -o int2  chebwhts.o ../prini.o
+  int2
+
+
+

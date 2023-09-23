@@ -1,0 +1,5 @@
+  rm jy01rea.o
+  rm int2
+  f77 -c jy01rea.f
+  f77  -o int2  jy01rea.o ../prini.o 
+  int2

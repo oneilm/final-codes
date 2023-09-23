@@ -1,0 +1,9 @@
+  rm pnmproj_init.o
+  rm int2
+  fort77 -c -O3 pnmproj_init.f
+  fort77 -o int2  pnmproj_init.o ../onedfmm_init.o ../prini.o\
+                  ../legeexps.o ../quaplot.o
+  int2
+
+
+

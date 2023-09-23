@@ -1,0 +1,8 @@
+   rm qcsvdpiv.o
+  rm int2
+  f77    -c qcsvdpiv.f
+  f77 -o int2  qcsvdpiv.o ../prini.o 
+  int2
+
+
+

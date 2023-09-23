@@ -1,0 +1,8 @@
+  rm mvecpsvd.o
+  rm int2
+  f77 -c -fast mvecpsvd.f
+  f77 -o int2  mvecpsvd.o ../prini.o ../legeexps.o ../svdpivot.o
+  int2
+
+
+

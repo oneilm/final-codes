@@ -1,0 +1,8 @@
+  rm jfuns_asymp.o
+  rm int2
+  f90  -c -A q jfuns_asymp.f -f s
+  f90 -o int2  -static -A q jfuns_asymp.f ../prini.f ../quaplot.f \
+                ../jb.f -f s
+
+  int2
+

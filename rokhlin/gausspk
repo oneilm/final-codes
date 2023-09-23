@@ -1,0 +1,5 @@
+  rm gausspk.o
+  rm int2
+  f77    -c gausspk.f
+  f77  -o int2  gausspk.o ../prini.o
+  int2

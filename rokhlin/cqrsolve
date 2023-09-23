@@ -1,0 +1,8 @@
+  rm cqrsolve.o
+  rm int2
+  f77 -c cqrsolve.f
+  f77 -o int2 cqrsolve.o ../prini.o ../lotatime.o 
+  int2
+
+
+

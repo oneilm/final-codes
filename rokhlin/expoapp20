@@ -1,0 +1,10 @@
+  rm expoapp20.o
+  rm int2
+  f77 -fast -c expoapp20.f
+  f77 -o int2  expoapp20.o ../prini.o ../quaplot.o \
+               ../legeexps.o ../prolcrea.o ../orthom.o ../proquadr.o \
+               ../qrsolve.o ../arrstore.o ../lotatime.o
+  int2
+
+
+

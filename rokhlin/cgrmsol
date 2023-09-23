@@ -1,0 +1,8 @@
+  rm cgrmsol.o
+  rm int2
+  f77    -c cgrmsol.f
+  f77 -o int2  cgrmsol.o ../prini.o 
+  int2
+
+
+

@@ -1,0 +1,8 @@
+  rm moderfun3.o
+  rm int2
+  f77 -c moderfun3.f 
+  f77  -o int2  moderfun3.o ../prini.o ../quaplot.o  \
+                 ../chebexps.o ../fourtmat.o
+  int2
+
+

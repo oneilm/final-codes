@@ -1,0 +1,1435 @@
+      implicit real *8 (a-h,o-z)
+         dimension ab(2,10 000),xs(10 000),whts(10 000),
+     1      expons(100 000),xstest(10000)
+        complex *16 coesexp(100 000),
+     1      fs(100 000),coesexp2(100 000),diffs(10 000),
+     3      fstest(10 000),fstest2(10 000),fxx,fxxp,fxxm,
+     4      derout2,fout,derout,errs(10 000)
+c
+         external fun1,fun2,fun3,fun4
+c
+        call prini(6,13)
+C
+C       SET ALL PARAMETERS
+C
+        PRINT *, 'ENTER k '
+        READ *,k
+        CALL PRINF('k=*',k,1 )
+C
+c        construct the subdivision of the interval [a,b]
+c
+
+
+        eps=1.0d-12
+
+        a=100
+
+        b=1000000 * 100.0d0
+        lab=10 000
+
+        iferrs=1
+
+        time1=clotatim()
+
+        do 2200 i=1,100
+
+
+         call exponexpand(ier,a,b,fun4,eps,
+cccc     1    ab,lab,nn,kk,coesexp,xs,whts,fs,
+     1    ab,lab,nn,kk,coesexp2,xs,whts,fs,
+     2       coesexp2,expons,errs,iferrs)
+
+
+ 2200 continue
+
+        time2=clotatim()
+
+        call prin2('after expoexpand, time2-time1=*',time2-time1,1)
+c
+         call prinf('after exponexpand, k=*',k,1)
+         call prinf('after exponexpand, nn=*',nn,1)
+c
+c        evaluate the obtained expansions at all points
+c
+        call prin2('coesexp2=*',coesexp2,nn*k*2)
+        call prin2('expons=*',expons,nn*kk)
+        call prin2('errs=*',errs,nn*kk)
+
+c
+c        test the "large interval" expansion evaluator
+c
+        call exponeval(ier,xs(50),ab,nn,kk,expons,coesexp2,
+     1      fout,derout)
+c
+        call prin2('after exponeval, fout=*',fout,2)
+        call prin2('and fs(50)=*',fs(50),2)
+
+        call prin2('and fout-fs(50)=*',fout-fs(50),2)
+
+c
+c       conduct mass testing of the evaluation
+c
+        ntest=500
+        h=(b-a)/ntest
+        dd=0
+        ddd=0
+        do 4200 i=1,ntest
+c
+        xstest(i)=(i-1)*h+a+h/2
+c
+        call exponeval(ier,xstest(i),ab,nn,kk,expons,coesexp2,
+     1      fstest(i),derout)
+
+        call fun4(xstest(i),par1,par2,fstest2(i))
+        
+        diffs(i)=fstest(i)-fstest2(i)
+c
+        dd=dd+abs(fstest(i))**2
+        ddd=ddd+abs(diffs(i))**2
+ 4200 continue
+c
+cccc        call prin2('xstest as created*',xstest,ntest)
+cccc        call prin2('fstest as created*',fstest,ntest*2)
+cccc        call prin2('fstest2 as created*',fstest2,ntest*2)
+cccc        call prin2('diffs=*',diffs,ntest*2)
+
+        errel=sqrt(ddd/dd)
+
+        call prin2('and errel=*',errel,1)
+
+cccc        stop
+
+c
+c        test the edrivative
+c
+        xx=0.4
+        h=0.0001/100
+        call exponeval(ier,xx,ab,nn,kk,expons,coesexp2,
+     1      fxx,derout)
+
+        call prin2('testing derivative, derout=*',derout,2)
+
+        call exponeval(ier,xx+h,ab,nn,kk,expons,coesexp2,
+     1      fxxp,derout)
+
+        call exponeval(ier,xx-h,ab,nn,kk,expons,coesexp2,
+     1      fxxm,derout)
+
+        derout2=(fxxp-fxxm)/h/2
+        call prin2('and derout2=*',derout2,2)
+
+        d=0
+        do 5200 i=1,nn*k
+c
+        d=d+whts(i)
+ 5200 continue
+c
+        call prin2('d=*',d,1)
+        call prin2('1-d=*',1-d,1)
+
+
+
+
+        stop
+        end
+
+c
+c
+c
+c
+c
+        subroutine fun2(xx,par1,par2,f)
+        implicit real *8 (a-h,o-z)
+        dimension par1(1),par2(1)
+        real *8 xx
+c
+        complex *16 f,ima
+        save
+c
+        data ima/(0.0d0,1.0d0)/
+
+
+
+        x=xx
+cccc        f=1/( sqrt(sqrt(x)) )**3 +exp(ima*1500*x)
+        f=1/( sqrt(sqrt(x)) )**3+ sin(5*x)*ima
+cccc        f=x**5+cos(100*x)
+cccc        f=x**5+cos(50*x)
+
+
+
+cccc        f=x**5+cos(10*x)  + ima*x**2/100
+
+        f=x**5+cos(10*x) 
+
+cccc        f=cos(2*x) *ima
+
+
+cccc            call prin2('f=*',f,2)
+
+
+cccc           f=x
+
+
+        f=( sqrt(sqrt(x)) )+ sin(5*x)*ima
+cccc        f= sin(5*x)*ima
+
+
+        f=sqrt(x)       
+cccc        call prin2('x=*',x,1)
+
+c
+        return
+        end
+
+c
+c
+c
+c
+c
+        subroutine fun4(x,par1,par2,f)
+        implicit real *8 (a-h,o-z)
+        dimension par1(1),par2(1)
+c
+        complex *16 f,ima,h1,z,rk
+        save
+c
+        data ima/(0.0d0,1.0d0)/
+
+
+        b=1000
+
+
+        rk=1+ima*1.0d-13
+
+
+
+        z=sqrt(b**2+x**2)
+
+        z=z*rk
+
+
+        ifexpon=0
+
+
+
+        call hank103(z,f,h1,ifexpon)
+
+
+
+
+
+        dd=b**2/ (sqrt(b**2+x**2)+x)
+
+        f=f*exp(ima*rk*dd)
+
+
+
+
+
+c
+        return
+        end
+
+
+c
+c
+c
+c
+c
+        subroutine fun3(x,par1,par2,f)
+        implicit real *8 (a-h,o-z)
+        dimension par1(1),par2(1)
+c
+        complex *16 f,ima,h1,z,rk
+        save
+c
+        data ima/(0.0d0,1.0d0)/
+
+
+        b=1000
+
+cccc        b=0.1d0
+
+        rk=1+ima*1.0d-10
+
+
+
+        z=sqrt(b**2+(x*1.0d8)**2)
+
+        z=z*rk
+
+
+        ifexpon=1
+
+
+
+        call hank103(z,f,h1,ifexpon)
+
+        f=f*exp(-ima*rk*x*1.0d8)
+
+c
+        return
+        end
+
+c
+c
+c
+c
+c
+        subroutine fun1(x,par1,par2,f)
+        implicit real *8 (a-h,o-z)
+        dimension par1(1),par2(1)
+c
+        complex *16 f,ima,h1,z,rk
+        save
+c
+        data ima/(0.0d0,1.0d0)/
+
+cccc        f=1/( sqrt(sqrt(x)) )**3 +exp(ima*1500*x)
+        f=1/( sqrt(sqrt(x)) )**3+ sin(5*x)*ima
+cccc        f=x**5+cos(100*x)
+cccc        f=x**5+cos(50*x)
+
+
+
+cccc        f=x**5+cos(10*x)  + ima*x**2/100
+
+cccc        f=x**5+cos(10*x) 
+
+
+
+
+cccc        f=x
+
+
+        rk=1+ima*1.0d-10
+
+        ifexpon=1
+        z=x*100000000.0d0 * rk
+        call hank103(z,f,h1,ifexpon)
+
+        f=f*exp(-ima*z)
+
+
+
+
+
+
+
+c
+        return
+        end
+
+c
+c
+ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+c
+c         This is the end of the debugging code and the beginning of
+c         the actual exponential expansion routines
+c
+cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+c
+c
+c        This file contains five user-callable subroutines: 
+c        exponexpand, exponeval, expoexpand, exporetr, exponeval
+c        (actually, exporetr is an entry in the subroutine 
+c        expoexpand). Following is a brief discussion of these 
+c        subroutines.
+c 
+c   exponexpand - constructs a nested exponential expansion
+c        of the user-supplied complex-valued function fun; the 
+c        latter is specified via the subroutine fun. The subroutine 
+c        subdivides the user-supplied interval [a,b] into a 
+c        collection of subintervals, and constructs an exponential 
+c        expansion on each subinterval.
+c   
+c   exponeval - evaluates at a user-specified point x a complex-
+c        valued function given by a nested exponential expansion; 
+c        the derivative of the said function is also returned. The 
+c        subroutine uses the results of a prior call to the 
+c        subroutine exponexpand (see).
+c
+c   expoexpand - this subroutine constructs the coefficients 
+c        coesexp of an exponential expansion of a user-specified 
+c        (complex-valued) function. The function is supplied to 
+c        the subroutine via collection fs of its values tabulated 
+c        at 40 nodes tt on the interval [-1,1]; the the user can 
+c        obtain the latter by calling the entry exporetr of this 
+c        subroutine. The expansion has the form
+c
+c          f(x)=\sum_{j=1}^{72} coefsexp_j * exp(ima*expon_j),        (1)
+c
+c        with the coefficients expon_j also obtained by a call to 
+c        the entry exporetr of this subroutine; all of the 
+c        coefficients {expon_j} are between -40 and 40. 
+c
+c   exporetr - returns to the user the parameters {expon_j},
+c        j=1,2,...,72 in the expansion (1) above, the 40 nodes tt
+c        to be used in the construction of the expansion (1), and 
+c        the weights ww corresponding to the nodes tt (these are 
+c        supplied for no apparent reason).
+
+         subroutine exponexpand(ier,a,b,fun,
+     1       eps,ab,lab,nn,kk,coesexp,xs,whts,fs,
+     2       coesexp2,expons,errs,iferrs)
+         implicit real *8 (a-h,o-z)
+         dimension ab(2,1),xs(1),whts(1),
+     1       expons(1),expons72(75)
+         complex *16 coesexp(1),fs(1),coesexp2(1),
+     1       ima,cd
+c
+         external fun
+c
+         data ima/(0.0d0,1.0d0)/        
+c
+c        This subroutine constructs a nested exponential expansion
+c        of the user-supplied complex-valued function fun; the 
+c        latter is specified via the subroutine fun. The subroutine 
+c        subdivides the user-supplied interval [a,b] into a 
+c        collection of subintervals; on the m-th subinterval, 
+c        the expansion has the form
+c
+c            f(x)=\sum_{j=1}^k coesexp2(j,m) \cdot 
+c                  e^{i \dot expons(j,m) \cdot x},                       (1)
+c
+c        and can be evaluated by calling the subroutine exponeval 
+c        (see); the complex coefficients coesexp2 and the exponents 
+c        expons are returned by the subroutine, as well certain 
+c        other types of information (see below).
+c
+c
+c                      Input parameters:
+c
+c  a,b - the ends of the interval on which the function is to be
+c        approximated
+c  fun - the function to be approximated; given by a subroutine 
+c        with the calling sequence 
+c
+c        fun(x,par1,par2,f)
+c
+c  itype - an integer parameter telling the subroutine how many 
+c        wavelengths to place on each elementary subinterval:
+c     itype=1 will cause to place 20/pi \sim 6 wavelength per 
+c        elementary subinterval, resulting an a 38-term expansion
+c     itype=2 will cause to place 63/pi \sim 20 wavelength per 
+c        elementary subinterval, resulting an a 74-term expansion
+
+c        
+
+
+         ier=0
+C
+c        construct the subdivision of the interval [a,b]
+c
+         call expo_callinte(jer,a,b,fun,par1,par2,
+     1      ab,lab,nn,lused,eps)
+c
+         if(jer .ne. 0) then
+c
+             ier=1024
+             return
+         endif
+c
+c        discretize all of the obtained subintervals
+c
+        call expo_cnodewht(ab,nn,xs,whts,k,expons72)
+c
+c       on each of the obtained subintervals, construct the exponentil
+c       expansion of the user-supplied function fun
+c
+cccc        call prinf('before expandem, k=*',k,1)
+c
+        call expandem(ab,nn,xs,whts,k,fun,coesexp,fs,
+     1      errs,iferrs)
+c
+c        rescale the exponential coefficients so that they 
+c        correspond  to the exponentials on the interval [a,b]
+c
+        kk=72
+        do 3400 i=1,nn
+c
+        alpha=2/(ab(2,i)-ab(1,i))
+        beta=1-alpha*ab(2,i)
+c
+        j0=(i-1)*kk
+c
+        do 3200 j=1,kk
+c
+        cd=ima*expons72(j)*beta
+        coesexp2(j0+j)=coesexp(j0+j)*exp(cd)
+c
+        expons(j0+j)=expons72(j)*alpha
+ 3200 continue
+c
+ 3400 continue
+c
+        return
+        end
+c
+c
+c
+c
+c
+        subroutine exponeval(ier,x,ab,nn,kk,expons,coefs,
+     1      fout,derout)
+        implicit real *8 (a-h,o-z)
+        dimension expons(kk,1),ab(2,1)
+        complex *16 coefs(kk,1),fout,derout
+c
+c        This subroutine evaluates at a user-specified point x a
+c        complex-valued function given by a nested exponential 
+c        expansion; the derivative of the said function is also 
+c        returned. he subroutine uses the results of a prior call 
+c        to the subroutine exponexpand (see).
+c
+c                      Input parameters:
+c
+c  x - the point where the function is to be evaluated
+c  ab,nn,kk,expons,coefs - parameters produced by a prior call
+c        to the subroutine exponexpand.
+c
+c                      Output parameters:
+c
+c  fout - the value of the function at the point x
+c  derout - the value of the derivative of the function at the 
+c        point x
+c
+c        find the subinterval on which the point x lives
+c
+        call expo_findinte(ier,x,ab,nn,intnum)
+c
+c       evaluate the function at the point x
+c
+        call expoeval(expons(1,intnum),coefs(1,intnum),
+     1      kk,x,fout,derout)
+c
+        return
+        end
+c
+c
+c
+c
+c
+        subroutine expoeval(expons,coefs,nn,x,fout,derout)
+        implicit real *8 (a-h,o-z)
+        dimension expons(1)
+        complex *16 coefs(1),cd,ima,fout,derout
+c
+        data ima/(0.0d0,1.0d0)/
+c
+        fout=0
+        derout=0
+c
+        do 1200 i=1,nn
+c
+        cd=exp(x*expons(i)*ima)
+        fout=fout+cd*coefs(i)
+c
+        derout=derout+cd*coefs(i)*ima*expons(i)
+
+ 1200 continue
+c
+        return
+        end
+c
+c
+c
+c
+c
+        subroutine expoexpand(fs,coefsexp,diffs,iferror)
+        implicit real *8 (a-h,o-z)
+        complex *16 coefs(100),fs(1),diffs(1),
+     1      cd,coefsexp(1),coefs3(72,37),
+     2      cfs3(50),ima,evalcoefs(72,40)
+        real *8 tt40(100),ww40(100),arrout(36,40),
+     1      expons(73),expon(1),tt(1),ww(1),rcoefs3(72,37)
+        save
+c
+        data ima/(0.0d0,1.0d0)/,ifcalled/0/
+c
+c       this subroutine constructs the coefficients coesexp of
+c       an exponential expansion of a user-specified (complex-
+c       valued) function. The function is supplied to the 
+c       subroutine via collection fs of its values tabulated at 
+c       40 nodes tt on the interval [-1,1]; the the user can 
+c       obtain the latter by calling the entry exporetr of this 
+c       subroutine. The expansion has the form
+c
+c          f(x)=\sum_{j=1}^{72} coefsexp_j * exp(ima*expon_j),        (1)
+c
+c       with the coefficients expon_j also obtained by a call to 
+c       the entry exporetr of this subroutine; all of the 
+c       coefficients {expon_j} are between -40 and 40. 
+c
+c                   Input parameters:
+c
+c  fs - 40 complex values of the function to be expanded, tabulated
+c       at the nodes tt on the interval [-1,1]
+c  iferror - tells the subroutine whether to return the errors of the
+c       calculation. This is a CPU time-saving option, since the 
+c       calculation of the errors is about 3 times more expensive
+c       than the calculation of the band-limited approximation
+c  
+c                   Output parameters:
+c
+c  coefsexp - the 72 complex coefficients in (1)
+c  diffs - the errors (40 of them) of the approximation at the nodes
+c       tt (where the input points are tabulated)
+c
+c
+c       . . . if this is the first call to this subroutine, 
+c             retrieve the coefficients of the exponential 
+c             expansions and the prolate expansion matrix
+c
+        if(ifcalled .eq. 1) goto 1600
+c
+        call expons_ret(expons,coefs3,tt40,ww40)
+c
+        do 1160 i=1,37
+c
+        ii=i/2
+        jj=i-ii*2
+        cd=-ima
+        if(jj .ne. 0) cd=1
+        do 1150 j=1,72
+c
+        rcoefs3(j,i)=coefs3(j,i)*cd
+ 1150 continue
+ 1160 continue
+c
+        call expomatr_ret(arrout)
+c
+        do 1400 i=1,72
+        do 1200 j=1,40
+c
+        cd=exp(tt40(j)*expons(i)*ima)
+c
+        evalcoefs(i,j)=cd
+ 1200 continue
+ 1400 continue
+c
+        ifcalled=1
+ 1600 continue
+c    
+c        construct the coefficients of the prolate expansion
+c
+        call expomatvec2(arrout,36,40,fs,coefs)
+c
+c       convert the obtained prolate coefficients into 
+c       coefficients of the exponential expansion
+c
+        call expoappl(coefs,coefsexp,rcoefs3)
+c
+c       evaluate the obtained expansion at the nodes
+c       tt40, and compate the obtained result with 
+c       the original function
+c
+        if(iferror .eq. 0) return
+c
+        do 2800  i=1,40
+c
+        cd=0
+        do 2700 j=1,72
+c
+        cd=cd+evalcoefs(j,i)*coefsexp(j)
+ 2700 continue
+c
+        cfs3(i)=cd
+c
+        diffs(i)=cfs3(i)-fs(i)
+ 2800 continue
+c
+        return
+c
+c
+c
+c
+        entry exporetr(expon,tt,ww)
+c
+c        this entry returns to the user the 72 exponentials to be
+c        used by the subroutine 
+
+        call points_ret(expon,tt,ww)
+        return
+        end
+c
+c
+c
+c
+c
+        subroutine expandem(ab,nn,xs,whts,k,fun,coesexp,fs,
+     1       errs,iferrs)
+        implicit real *8 (a-h,o-z)
+        dimension xs(1),whts(1),ab(2,1)
+        complex *16 fs(1),coesexp(72,1),diffs(100),errs(k,1)
+c
+c        evaluate the user-supplied function at all nodes on
+c        all subintervals
+c
+        n=nn*k
+        do 2200 i=1,n
+c
+        call fun(xs(i),par1,par2,fs(i))
+ 2200 continue
+c
+c        one subinterval after another, decompose the function
+c        fun into exponentials
+c
+        do 2400 i=1,nn
+c
+        iff=(i-1)*k+1
+c     
+cccc        call expoexpand(fs(iff),coesexp(1,i),diffs,iferrs)
+        call expoexpand(fs(iff),coesexp(1,i),diffs,iferrs)
+c
+        if(iferrs .eq. 0) goto 2400
+c
+        do 2300 j=1,k
+c
+        errs(j,i)=diffs(j)
+ 2300 continue
+c
+ 2400 continue
+c
+        return
+        end
+c
+c
+c
+c
+c
+        subroutine expo_cnodewht(ab,nn,x,whts,k7,expons72)
+        implicit real *8 (a-h,o-z)
+        dimension ab(2,1),x(1),whts(1),tt40(50),ww40(50),
+     1      expons72(1)
+c
+        save
+c
+        data ifcalled/0/
+c
+c       construct the nodes and weights of the prolate
+c       quadrature on the interval [-1,1]
+c
+        k=40
+        if(ifcalled .eq. 0) call points_ret(expons72,tt40,ww40)
+        ifcalled=1
+        k7=k
+c
+c       one subinterval after another, construct nodes and weights 
+c       of the quadrature on the big interval
+c
+        do 2000 i=1,nn
+        u=(ab(2,i)-ab(1,i))/2
+        v=(ab(2,i)+ab(1,i))/2
+        ik=(i-1)*k+1
+c
+        call expo_discr(ab(1,i),ab(2,i),tt40,ww40,k,
+     1      x(ik),whts(ik) )
+ 2000 continue
+c
+        return
+        end
+c
+c
+c
+c
+c
+         subroutine expo_callinte(ier,a,b,fun,par1,par2, 
+     1      ab,lab,nn,lused,eps)
+        implicit real *8 (a-h,o-z)
+        dimension par1(1),par2(1),ab(2,1)
+        equivalence (rea,intint)
+c
+c       this subroutine finds a subdivision of the interval [a,b],
+c       such that on every subinterval, the user-provided function
+c       fun is integrated to precision eps by a k-point Gaussian 
+c       quadrature. 
+c
+c                          input parameters:
+c
+c  a,b - the ends of the interval to be subdivided
+c  fun - the user-supplied function to be integrated
+c      The calling sequence of fun must be:
+c
+c          fun(x,par1,par2,f),
+c  
+c       where x is the input argument where the function is to be 
+c       evaluated, f  (output) is the function, and par1,par2 are 
+c       both input parameters, carrying whatever information funget 
+c       might need.
+c
+c  par1,par2 - whatever the user-supplied subroutine funget needs
+c  lab - the length of the user-provided array ab (see below)
+c
+c                     output parameters:
+c
+c  ier - error return code. 
+c         ier=0 means successful execution
+c         ier=4 means that the space allocated in the array ab is
+c         insufficient
+c  ab - the array of ends of subintervals created. For each i=1,2,...,nn,
+c     ab(1,i) is the left end of the i-th subinterval; ab(2,i) is
+c     the right end of the i-th subinterval
+c  nn - the number of subintervals created on the interval [a,b];
+c     also the number of entries in the array ab (see above)
+c  lused - the total amount of space used by the subroutine in the
+c     array ab; note that normally, it  is somewhat greater than 
+c     the expected nn*2; The difference is not large, but should
+c     be taken into account when allocating memory.
+c
+c       . . . start the recursive subdivision process
+c
+        ab(1,1)=a
+        ab(2,1)=b
+        nn=0
+        istore=1
+        ier=0
+c
+c       recursively subdivide the intervals till none need 
+c       to be subdivided
+c
+        lused=0
+        do 2000 i=1,1 000 000
+c
+        nn=nn+1
+c
+c       check if any more intervals need to be subdivided
+c
+        if(nn .gt. istore) goto 2200        
+c
+c       check if this interval needs to be subdivided
+c
+        d=ab(2,nn)-ab(1,nn)
+c
+        call expo_ifsplit2(fun,par1,par2,ab(1,nn),ab(2,nn),
+     1      eps,ier)
+c
+        if(ier .eq. 0) goto 2000
+c
+c       this interval needs to be subdivided. act accordingly
+c
+        if(lused .lt. istore*2+4) lused=istore*2+4
+        if(istore*2 +4 .lt. lab) goto 1800
+        ier=4
+        return
+ 1800 continue
+c
+        istore=istore+1
+        ab(1,istore)=ab(1,nn)
+        ab(2,istore)=(ab(1,nn)+ab(2,nn))/2
+c
+        istore=istore+1
+        ab(1,istore)=ab(2,istore-1)
+        ab(2,istore)=ab(2,nn)
+c
+        intint=9654236
+        ab(1,nn)=rea
+        ab(2,nn)=1.0d35
+ 2000 continue
+ 2200 continue
+c
+        nn=nn-1
+c
+c       scan the intervals we have created, discarding those that have kids
+c
+        ii=0
+        do 2400 i=1,nn
+        rea=ab(1,i)
+c       
+        if( (ab(2,i) .gt. 1.0d34 ) .and. 
+     1      (intint .eq. 9654236) ) goto 2400
+        ii=ii+1
+        ab(1,ii)=ab(1,i)
+        ab(2,ii)=ab(2,i)
+ 2400 continue
+        nn=ii
+c
+c        bubble-sort the array ab
+c
+        call expo_cbubble(ab,nn)
+c
+        return
+        end  
+
+c
+c
+c
+c
+c
+        subroutine expo_discr(a,b,tt,ww,n,xx,wwxx)
+        implicit real *8 (a-h,o-z)
+        dimension tt(1),ww(1),xx(1),wwxx(1)
+c
+        u=(b-a)/2
+        v=(b+a)/2
+c
+        do 1200 i=1,n
+c
+        xx(i)=u*tt(i)+v
+        wwxx(i)=ww(i)*u
+ 1200 continue
+c
+        return
+        end
+c
+c
+c
+c
+c
+        subroutine expo_findinte(ier,x,ab,nn,intnum)
+        implicit real *8 (a-h,o-z)
+        dimension ab(2,nn)
+c
+        data intold/-10/,ithresh/10/
+c
+c       check if the point is on the subinterval as the preceding one
+c
+        ier=0
+cccc        if(intold .lt. 0) goto 2000
+        if( (intold .lt. 0) .or. (intold .gt. nn) ) goto 2000
+c
+        intnum=intold
+        if( (x .ge. ab(1,intnum) ) .and. (x .le. ab(2,intnum) ) ) return
+ 2000 continue
+c
+c      the point is not on the same subinterval as the preceding one.
+c      if nn is less than ithresh, use direct scan to find the proper 
+c      interval
+c
+       if(nn .gt. ithresh) goto 3000
+c
+       if(x .lt. ab(1,1)) then
+           ier=4
+           return
+       endif
+c
+        do 2200 j=1,nn
+c
+           intnum=j
+c
+        if(ab(2,j) .ge. x) goto 2400
+ 2200 continue
+c
+        ier=4
+        return
+ 2400 continue
+c
+        intold=intnum
+        return
+c
+ 3000 continue
+c
+c      The point is not on the same subinterval as the preceding one,
+c      and nn is greater than ithresh; use bisection to find the proper 
+c      interval
+c
+       i1=1
+       i2=nn
+       i3=(i1+i2)/2
+c
+       do 3400 i=1,100
+c
+       if(x .ge. ab(1,i3)) i1=i3
+       if(x .le. ab(2,i3)) i2=i3
+c
+       if(i2 .eq. i1) goto 3600
+c
+       i3=(i1+i2)/2
+ 3400 continue
+c
+ 3600 continue
+
+       if(x .lt. ab(1,i3)) i3=i3-1
+       if(x .gt. ab(2,i3)) i3=i3+1
+
+       intnum=i3
+       intold=intnum
+c       
+        return
+        end
+c
+c
+c
+c
+c
+        subroutine expo_cbubble(ab,nn)
+        implicit real *8 (a-h,o-z)
+        dimension ab(2,1)
+c
+c       sort the array ab with respect to the first coordinate
+c
+        do 2000 i=1,nn
+        do 1200 j=1,i-1
+        if(ab(1,i) .ge. ab(1,j) ) goto 1200
+        d=ab(1,i)
+        ab(1,i)=ab(1,j)
+        ab(1,j)=d
+c
+        d=ab(2,i)
+        ab(2,i)=ab(2,j)
+        ab(2,j)=d
+ 1200 continue
+ 2000 continue
+        return
+        end
+
+c
+c
+c
+c
+c
+        subroutine expo_ifsplit2(fun,par1,par2,a,b,eps,ifsplit)
+        implicit real *8 (a-h,o-z)
+        dimension par1(1),par2(1),xx1(100),ww0(100),xx0(100)
+        complex *16 fs0(100),fs1(100),fs2(100),diffs(100)
+        dimension pnts(20),expons(100),tt40(50),
+     1      ww40(50),ww1(100)
+c
+        save
+        data ifcalled/0/
+        data pnts/
+     1  -.99312859918509492479D+00,-.96397192727791379127D+00,
+     2  -.91223442825132590587D+00,-.83911697182221882339D+00,
+     3  -.74633190646015079261D+00,-.63605368072651502545D+00,
+     4  -.51086700195082709800D+00,-.37370608871541956067D+00,
+     5  -.22778585114164507808D+00,-.76526521133497333755D-01,
+     6  0.76526521133497333755D-01,0.22778585114164507808D+00,
+     7  0.37370608871541956067D+00,0.51086700195082709800D+00,
+     8  0.63605368072651502545D+00,0.74633190646015079261D+00,
+     9  0.83911697182221882339D+00,0.91223442825132590587D+00,
+     *  0.96397192727791379127D+00,0.99312859918509492479D+00/
+c
+c        if needed, retrieve from the subroutine interp40to20 the 
+c        interpolation matrix to be used to test the smoothness of 
+c        the function
+c
+        if(ifcalled .eq. 0) call exporetr(expons,tt40,ww40)
+        ifcalled=1
+c
+c        discretize the interval [a,b] using the 40 prolate nodes
+c
+        call expo_discr(a,b,tt40,ww40,40,xx0,ww0)
+c
+c        discretize the interval [a,b] using the 20 Gaussian nodes
+c
+        call expo_discr(a,b,pnts,ww40,20,xx1,ww1)
+c
+c        evaluate the function to be analyzed at both grids
+c
+        do 1400 i=1,40
+c
+        call fun(xx0(i),par1,par2,fs0(i))
+ 1400 continue
+c
+        do 1600 i=1,20
+c
+        call fun(xx1(i),par1,par2,fs1(i))
+ 1600 continue
+c
+c        interpolate the function from the prolate grid to the 
+c        Gaussian grid
+c
+        call expomatvec4(fs0,fs2)
+c
+        d=0
+        dd=0
+        do 1800 i=1,20
+c
+        diffs(i)=fs2(i)-fs1(i)
+c
+        d=d+fs1(i)*conjg(fs1(i))
+        dd=dd+diffs(i)*conjg(diffs(i))
+ 1800 continue
+c
+        errel=sqrt(dd/d)
+        ifsplit=0
+        if(errel .gt. eps) ifsplit=1
+c
+        return
+        end
+c
+c
+c
+c
+c
+        subroutine expomatvec4(x,y)
+        implicit real *8 (a-h,o-z)
+        dimension asymm(10,20),aasymm(10,20)
+        complex *16 x(40),y(20),xsymm(100),y2(100),y1(100),
+     1      xasymm(100),cd1,cd2
+c
+        data ifcalled/0/
+c
+c       symmetrize and antisymmetrize x
+c
+        n=20
+        m=40
+        do 1200 i=1,20
+c
+        xsymm(i)=(x(i)+x(41-i))/2
+        xasymm(i)=(x(i)-x(41-i))/2
+ 1200 continue
+c
+        if(ifcalled .eq. 0) call exposymm(asymm,aasymm)
+        ifcalled=1
+c
+c       apply the operator to the symmetrized part of x
+c
+        do 2400 i=1,10
+        cd1=0
+        cd2=0
+        do 2200 j=1,20
+c
+        cd1=cd1+asymm(i,j)*xsymm(j)
+        cd2=cd2+aasymm(i,j)*xasymm(j)
+ 2200 continue
+c
+        y1(i)=cd1
+        y2(i)=cd2
+ 2400 continue
+c
+        do 4600 i=1,10
+c
+        y(i)=y1(i)+y2(i)
+        y(n-i+1)=y1(i)-y2(i)
+ 4600 continue
+c
+        return
+        end
+c
+c
+c
+c
+c
+        subroutine exposymm(symm,asymm)
+        implicit real *8 (a-h,o-z)
+        dimension symm1(180),symm2(20),sbuff(2),
+     1       asymm1(180),asymm2(20),abuff(2),
+     2       symm(200),asymm(200)
+c
+        equivalence (symm1(180),sbuff(1)),
+     1      (symm2(1),sbuff(2)),(asymm1(180),abuff(1)),
+     1      (asymm2(1),abuff(2))
+
+        data symm1/
+     1  0.2580509808887957D+00,0.3577470693252816D-01,
+     2  0.2735139045508189D-02,-.7982852151286928D-02,
+     3  -.7922513751392023D-02,-.4030904684909979D-02,
+     4  -.2325330821794799D-03,0.2276488259606791D-02,
+     5  0.3610306863122156D-02,0.4155632600919709D-02,
+     6  0.8997492559705167D+00,-.1518001254251797D+00,
+     7  -.1307058206205190D-01,0.2572460861874014D-01,
+     8  0.2631107001100516D-01,0.1362220033353475D-01,
+     9  0.1064842400028114D-02,-.7268200347919160D-02,
+     *  -.1171077458195206D-01,-.1353077496145818D-01,
+     1  -.1990402123928380D+00,0.6292108015140060D+00,
+     2  0.4117676677324924D-01,-.4273948769057934D-01,
+     3  -.4683889896169449D-01,-.2508099543785707D-01,
+     4  -.2899122570997356D-02,0.1195857436422535D-01,
+     5  0.1992421969344967D-01,0.2320034011492263D-01,
+     6  0.1457508727373716D-01,0.6050997447741133D+00,
+     7  -.1261790084043618D+00,0.4987628955240654D-01,
+     8  0.6400247026959185D-01,0.3622665059868504D-01,
+     9  0.6202752452214563D-02,-.1424120790956031D-01,
+     *  -.2530557941666655D-01,-.2988540452498821D-01,
+     1  0.9745417843457592D-01,-.1611105952486528D+00,
+     2  0.7214973752153169D+00,-.3401982126078124D-01,
+     3  -.7288972406217402D-01,-.4519070473336552D-01,
+     4  -.1119864198786416D-01,0.1263388008591917D-01,
+     5  0.2573264826284816D-01,0.3120939150520425D-01,
+     6  -.1660283209280554D+00,0.5118306703063724D-01,
+     7  0.5190800343122839D+00,-.4289144435351734D-01,
+     8  0.6844047916966269D-01,0.5026244157201062D-01,
+     9  0.1768776403745589D-01,-.6495174965025064D-02,
+     *  -.2014205779810308D-01,-.2594069239227994D-01,
+     1  0.1971270406482897D+00,0.1603814513071780D-02,
+     2  -.2349698176201908D+00,0.7634516100353986D+00,
+     3  -.4232163648130331D-01,-.4962957874227269D-01,
+     4  -.2494014567647314D-01,-.3862638853342545D-02,
+     5  0.8651803124011546D-02,0.1411942024165957D-01,
+     6  -.1951472203690213D+00,-.2868451070518940D-01,
+     7  0.1484512167573721D+00,0.4208980519758579D+00,
+     8  -.3666447508992361D-01,0.4054757711037240D-01,
+     9  0.3160299943108140D-01,0.1720182732147611D-01,
+     *  0.7503538306386868D-02,0.3019574832104095D-02,
+     1  0.1661282962341295D+00,0.3969296934856287D-01,
+     2  -.9362374991163006D-01,-.2145458005727873D+00,
+     3  0.8352411691268791D+00,-.1621290922048735D-01,
+     4  -.3548917212766903D-01,-.3147727266553179D-01,
+     5  -.2618289991538294D-01,-.2328667074648362D-01,
+     6  -.1177873136199568D+00,-.3975837887017520D-01,
+     7  0.4947182255986316D-01,0.1314845265543138D+00,
+     8  0.3109165899166928D+00,-.5301478398637403D-01,
+     9  0.3282138381636216D-01,0.4394404587795261D-01,
+     *  0.4461691543423091D-01,0.4386439457926106D-01,
+     1  0.5873338233034877D-01,0.3269246272265095D-01,
+     2  -.1168748080441387D-01,-.7192385597338881D-01,
+     3  -.1584087803730584D+00,0.8617535561248862D+00,
+     4  -.1507390698956130D-01,-.5107136727086996D-01,
+     5  -.5966728884488158D-01,-.6164411156927413D-01,
+     6  0.2471082519865202D-02,-.2169956514645479D-01,
+     7  -.2004140627208748D-01,0.2339559414997943D-01,
+     8  0.9686893660500131D-01,0.2858996668318588D+00,
+     9  -.5062892504568567D-01,0.4777436854039228D-01,
+     *  0.6796644821119872D-01,0.7350718092452546D-01,
+     1  -.5814661310333544D-01,0.9483238660469414D-02,
+     2  0.4494722419404636D-01,0.1569259932893883D-01,
+     3  -.5651444626132759D-01,-.1621684687763642D+00,
+     4  0.8260852748766700D+00,-.2390255286993477D-01,
+     5  -.6576337012125371D-01,-.7649332717559284D-01,
+     6  0.1021289825729208D+00,0.1795795421731330D-02,
+     7  -.6217646783187350D-01,-.4473600411735442D-01,
+     8  0.2714659264376961D-01,0.1183598971444077D+00,
+     9  0.3414170373002988D+00,-.5699936602105600D-01,
+     *  0.4797550740352282D-01,0.6778275026259538D-01,
+     1  -.1301700978063432D+00,-.1057400734914689D-01,
+     2  0.7120513778589381D-01,0.6300353692377701D-01,
+     3  -.6286915709444757D-02,-.9127714820573703D-01,
+     4  -.2011865576976419D+00,0.7729255173248614D+00,
+     5  -.4300948909165950D-02,-.4432942407741838D-01,
+     6  0.1401175216245989D+00,0.1590898781035395D-01,
+     7  -.7201556473440635D-01,-.7030922623155100D-01,
+     8  -.6985518810447151D-02,0.7042107886331046D-01,
+     9  0.1501142388519320D+00,0.4177099542843928D+00,
+     *  -.1024955810348785D+00,0.1632447192304017D-02,
+     1  -.1319000924766501D+00,-.1746263683740307D-01,
+     2  0.6514831665397278D-01,0.6722940491229996D-01,
+     3  0.1344287385426190D-01,-.5261573533129723D-01,
+     4  -.1141404548465400D+00,-.2149671190087338D+00,
+     5  0.7368906357835614D+00,0.7049412451262988D-01,
+     6  0.1073533435425348D+00,0.1544541291916771D-01,
+     7  -.5167771772271755D-01,-.5511951733550453D-01,
+     8  -.1410633655180233D-01,0.3655594064370934D-01,
+     9  0.8149761353745759D-01,0.1367394988413669D+00,
+     *  0.4712261265257212D+00,-.2087682124847050D+00/
+c    
+        data symm2/
+     1  -.6991885372025381D-01,-.1052782657799973D-01,
+     2  0.3313678855681406D-01,0.3602231297963686D-01,
+     3  0.1033027131881739D-01,-.2154828776474188D-01,
+     4  -.4915225207797027D-01,-.7880633418781158D-01,
+     5  -.1671287551104641D+00,0.7657700721766310D+00,
+     6  0.2424957237614100D-01,0.3726644512908990D-02,
+     7  -.1140802649058719D-01,-.1251052534459817D-01,
+     8  -.3761206863114190D-02,0.7120507660631717D-02,
+     9  0.1644780539908187D-01,0.2592707919959160D-01,
+     *  0.4859910612469506D-01,0.3851232889894433D+00/
+c
+        data asymm1/
+     1  0.2461869775064312D+00,0.3319082015632594D-01,
+     2  0.7179941862860256D-02,-.2417846355676279D-02,
+     3  -.5299275005951385D-02,-.5032275139179321D-02,
+     4  -.3732135070742633D-02,-.2389875142794903D-02,
+     5  -.1290964328226477D-02,-.4044288387018381D-03,
+     6  0.9387025933601706D+00,-.1433679092748919D+00,
+     7  -.2771880350074941D-01,0.7461081173040961D-02,
+     8  0.1777948184193434D-01,0.1702714072103716D-01,
+     9  0.1266299656279136D-01,0.8120400453003160D-02,
+     *  0.4390382844314759D-02,0.1376035929585597D-02,
+     1  -.2669917717139593D+00,0.6146747243536112D+00,
+     2  0.6691214531677488D-01,-.1090949749790273D-01,
+     3  -.3223173531557257D-01,-.3141477979382933D-01,
+     4  -.2349095548585101D-01,-.1510547053766874D-01,
+     5  -.8180570230445489D-02,-.2566147325634103D-02,
+     6  0.1048819146644494D+00,0.6240421421817753D+00,
+     7  -.1607735336384730D+00,0.7645582905667775D-02,
+     8  0.4519356949711489D-01,0.4549807396397893D-01,
+     9  0.3433699335685958D-01,0.2217728119099177D-01,
+     *  0.1204154705796853D-01,0.3782212322463146D-02,
+     1  -.2421425583913771D-02,-.1813998387910827D+00,
+     2  0.7604393318590011D+00,0.1254438415773607D-01,
+     3  -.5316323957421262D-01,-.5694252783899279D-01,
+     4  -.4363365989391616D-01,-.2837250163736807D-01,
+     5  -.1546374954769501D-01,-.4866133165788830D-02,
+     6  -.7259893321253936D-01,0.6912334696887475D-01,
+     7  0.4815930026830864D+00,-.8619584929923401D-01,
+     8  0.5170796551444335D-01,0.6360838536115853D-01,
+     9  0.5004676766178230D-01,0.3288580138034292D-01,
+     *  0.1802260756193673D-01,0.5686148669124206D-02,
+     1  0.1262433625039162D+00,-.1042730307263558D-01,
+     2  -.2049456829179698D+00,0.7958646896027384D+00,
+     3  -.3228822779818337D-01,-.6331701764016337D-01,
+     4  -.5244736449646421D-01,-.3506768208111594D-01,
+     5  -.1937935655228358D-01,-.6137224398154217D-02,
+     6  -.1601466361880900D+00,-.2530706673711001D-01,
+     7  0.1310976352499634D+00,0.4056937951478451D+00,
+     8  -.3723341346927654D-01,0.5305557086757972D-01,
+     9  0.4979986954070191D-01,0.3439778286480216D-01,
+     *  0.1927303106373762D-01,0.6139164538720217D-02,
+     1  0.1754552812321647D+00,0.4641528178341560D-01,
+     2  -.9256259805406531D-01,-.2205353817558143D+00,
+     3  0.8250376837582272D+00,-.2588399791644544D-01,
+     4  -.4083980307942125D-01,-.3040687075298767D-01,
+     5  -.1749457513126867D-01,-.5630040536260704D-02,
+     6  -.1737983573778172D+00,-.5649432330941651D-01,
+     7  0.6625339420479326D-01,0.1597414191614889D+00,
+     8  0.3314979259741657D+00,-.4781742625223999D-01,
+     9  0.2315045593240875D-01,0.2250511761312894D-01,
+     *  0.1383563809241951D-01,0.4553690485268342D-02,
+     1  0.1574660304651850D+00,0.5783987081308820D-01,
+     2  -.4562194618428838D-01,-.1204862497465295D+00,
+     3  -.1873002096733972D+00,0.8624759065374686D+00,
+     4  0.1018406451493059D-01,-.9592436957380454D-02,
+     5  -.7995061556894469D-02,-.2838869365016828D-02,
+     6  -.1293219211842793D+00,-.5237067018277216D-01,
+     7  0.2823587589916924D-01,0.8754740871410074D-01,
+     8  0.1305954631475690D+00,0.2781720978889769D+00,
+     9  -.9036174034764139D-01,-.1099227531734969D-01,
+     *  -.6039901551268566D-03,0.3638057107395178D-03,
+     1  0.9262299253232555D-01,0.4189320019391354D-01,
+     2  -.1309417867773709D-01,-.5717466806119242D-01,
+     3  -.9063612492071654D-01,-.1468665922118074D+00,
+     4  0.8775912388971752D+00,0.4721573783887807D-01,
+     5  0.1322628245777167D-01,0.3109722583988274D-02,
+     6  -.5081676847198828D-01,-.2815437733913137D-01,
+     7  -.2033462355677994D-03,0.2862188436579152D-01,
+     8  0.5680899834604864D-01,0.9556211791132045D-01,
+     9  0.2822194075552656D+00,-.1337594128086685D+00,
+     *  -.3294836174536327D-01,-.8074861957693399D-02,
+     1  0.7346433213811150D-02,0.1282061803242843D-01,
+     2  0.1177723288599354D-01,-.2183163171032802D-02,
+     3  -.2681364512531532D-01,-.6180684184724647D-01,
+     4  -.1394645415983337D+00,0.8473568928924960D+00,
+     5  0.6863133736341753D-01,0.1561428514152476D-01,
+     6  0.3452303599440878D-01,0.2566795456944246D-02,
+     7  -.2161387583406542D-01,-.2146512392335917D-01,
+     8  0.4832197501921607D-03,0.3590450797035167D-01,
+     9  0.9177882677085276D-01,0.3542866014799127D+00,
+     *  -.1566207602825290D+00,-.2835859584787611D-01,
+     1  -.7185282267869619D-01,-.1664026842279134D-01,
+     2  0.2963989023834865D-01,0.4154662418376158D-01,
+     3  0.2168895782336859D-01,-.1549724442981292D-01,
+     4  -.6548978217288967D-01,-.1714129234043166D+00,
+     5  0.7609198334363377D+00,0.5396484052934684D-01,
+     6  0.1021513218852031D+00,0.2825021657810611D-01,
+     7  -.3576367542343244D-01,-.5732950195269509D-01,
+     8  -.3904923116557260D-01,0.7012174107203829D-04,
+     9  0.4887719451615142D-01,0.1216597971242549D+00,
+     *  0.4889582515459839D+00,-.1239176548761912D+00/
+c   
+        data asymm2/
+     1  -.1234689506289506D+00,-.3650182897739075D-01,
+     2  0.3990005903661213D-01,0.6820939078571054D-01,
+     3  0.5099655683669333D-01,0.1034809293805222D-01,
+     4  -.3866295140606995D-01,-.1002830921560281D+00,
+     5  -.2392643731435241D+00,0.5761253074703486D+00,
+     6  0.1344678909596300D+00,0.4078299747321511D-01,
+     7  -.4198520151521894D-01,-.7375943481137699D-01,
+     8  -.5708697824537674D-01,-.1560921550790164D-01,
+     9  0.3373678077679900D-01,0.9155097755884822D-01,
+     *  0.1910713725773951D+00,0.7724969545978549D+00/
+c
+        do 1200 i=1,200
+c
+        symm(i)=symm1(i)
+        asymm(i)=asymm1(i)
+ 1200 continue 
+        return
+        end
+c
+c
+c
+c
+c
+        subroutine expoappl(coefs,coefsexp,rcoefs3)
+        implicit real *8 (a-h,o-z)
+        complex *16 coefs(1),cd,coefsexp(1),ima,
+     1      coefsexp2(100),coefsexp3(100),cd1
+c
+        real *8 rcoefs3(72,37)
+c
+        data ima/(0.0d0,1.0d0)/
+c
+c       convert the obtained prolate coefficients into 
+c       coefficients of the exponential expansion
+c
+        do 3600 i=1,36
+c
+        cd=0
+        cd1=0
+        do 3400 j=1,36,2
+c
+        cd=cd+rcoefs3(i,j)*coefs(j)
+c
+        j1=j+1
+        cd1=cd1+rcoefs3(i,j1)*coefs(j1)
+ 3400 continue
+c
+        coefsexp2(i)=cd
+        coefsexp3(i)=cd1
+c
+ 3600 continue
+c
+        do 4700 i=1,36
+c
+        coefsexp3(73-i)=-coefsexp3(i)
+        coefsexp2(73-i)=coefsexp2(i)
+ 4700 continue
+c
+        do 4800 i=1,72
+c
+        coefsexp(i)=ima*coefsexp3(i)+coefsexp2(i)
+ 4800 continue
+c
+        return
+        end
+c
+c
+c
+c
+c
+        subroutine expomatvec2(a,n,m,x,y)
+        implicit real *8 (a-h,o-z)
+        dimension a(n,m)
+        complex *16 x(m),y(n),d,symmetr(100),asymmetr(100),d1
+c
+        do 1200 i=1,m/2
+c
+        symmetr(i)=x(i)+x(m-i+1)
+        asymmetr(i)=x(i)-x(m-i+1)
+ 1200 continue
+c
+        do 3400 i=1,n,2
+        d=0
+        d1=0
+        do 3200 j=1,m/2
+c
+        d=d+a(i,j)*symmetr(j)
+ 3200 continue
+c
+        y(i)=d
+c
+        if(i .eq. n) goto 3600
+        i1=i+1
+        do 3300 j=1,m/2
+c
+        d1=d1+a(i1,j)*asymmetr(j)
+ 3300 continue
+c
+        y(i1)=d1
+ 3400 continue
+ 3600 continue
+        return
+        end
+c
+c
+c
+c
+c
+        subroutine expons_cpy(cs,coefs,cd)
+        implicit real *8 (a-h,o-z)
+        dimension cs(36)
+        complex *16 coefs(1),cd
+c
+        n=36
+        do 1200 i=1,n
+c
+        coefs(i)=cd*cs(i)
+c
+        coefs(2*n-i+1)=conjg(coefs(i))
+ 1200 continue
+c
+        return
+        end
+

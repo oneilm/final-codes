@@ -1,0 +1,7 @@
+  rm tables14.o
+  rm int2
+  f77  -fast -c tables14.f
+  f77 -o int2  tables14.o  ../prini.o ../lotaplot.o \
+                         ../legeexps.o  ../adapgaus.o 
+  int2
+

@@ -1,0 +1,10 @@
+  rm prolcrea.o
+  rm int2
+  f77  -c prolcrea.f
+  f77 -o int2  prolcrea.o ../prini.o ../lotaplot.o ../grmsol.o \
+               ../legeexps.o ../lotatime.o ../orthom.o ../proquadr.o \
+               ../qrsolve.o
+  int2
+
+
+

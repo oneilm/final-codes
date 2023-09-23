@@ -1,0 +1,8 @@
+  rm d2mcomp.o
+  rm int2
+  f77  -c d2mcomp.f
+  f77 -o int2  d2mcomp.o ../prini.o ../rsplot.o
+  int2
+
+
+

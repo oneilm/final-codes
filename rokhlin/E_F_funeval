@@ -1,0 +1,9 @@
+  rm E_F_funeval.o
+  rm int2
+  f77 -c E_F_funeval.f
+  f77 -o int2  E_F_funeval.o ../prini.o ../legeexps.o \
+                      ../adapgaus.o 
+  int2
+
+
+

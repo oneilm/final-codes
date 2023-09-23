@@ -1,0 +1,8 @@
+  rm grmsol.o
+  rm int2
+  f77    -c grmsol.f
+  f77 -o int2  grmsol.o ../prini.o 
+  int2
+
+
+

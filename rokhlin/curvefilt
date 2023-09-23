@@ -1,0 +1,8 @@
+  rm curvefilt.o
+  rm int2
+  f77 -fast -c curvefilt.f
+  f77  -o int2 curvefilt.o  ../prini.o  ../quaplot.o  \
+              ../legeexps.o ../slepapin.o \
+              ../prolcrea.o ../proquadr.o \
+              ../orthom.o  ../qrsolve.o ../lotatime.o
+  int2

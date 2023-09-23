@@ -1,0 +1,5 @@
+  rm i0eva.o
+  rm int2
+  f77 -c i0eva.f
+  f77 -o int2  i0eva.o ../prini.o 
+  int2

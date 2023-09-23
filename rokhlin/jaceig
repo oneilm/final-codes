@@ -1,0 +1,8 @@
+  rm jaceig.o
+  rm int2
+  f77 -O -c jaceig.f
+  f77 -o int2  jaceig.o ../prini.o 
+  int2
+
+
+

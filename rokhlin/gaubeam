@@ -1,0 +1,5 @@
+  rm gaubeam.o
+  rm int2
+  f77   -c gaubeam.f
+  f77  -o int2  gaubeam.o ../prini.o ../rsplot.o ../hank101.o
+  int2

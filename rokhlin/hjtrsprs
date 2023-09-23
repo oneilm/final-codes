@@ -1,0 +1,6 @@
+  rm hjtrsprs.o
+  rm int2
+  f77 -c hjtrsprs.f
+  f77  -o int2  hjtrsprs.o  ../prini.o  ../rsplot.o  \
+       ../hank71.o ../jb.o ../durdec.o 
+  int2

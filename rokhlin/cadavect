@@ -1,0 +1,5 @@
+  rm cadavect.o
+  rm int2
+  f77 -c cadavect.f
+  f77 -o int2 cadavect.o ../prini.o 
+  int2

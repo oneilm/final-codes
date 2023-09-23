@@ -1,0 +1,8 @@
+  rm adapgaub.o
+  rm int2
+  gfortran -c adapgaub.f
+  gfortran -o int2  adapgaub.o ../bin/prini.o 
+  int2
+
+
+

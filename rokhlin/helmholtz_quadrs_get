@@ -1,0 +1,12 @@
+  rm helmholtz_quadrs_get.o
+  rm int2
+  f77 -fast -c helmholtz_quadrs_get.f
+  f77 -o int2  -fast helmholtz_quadrs_get.o ../prini.o ../legeexps.o  \
+               ../mvecsvd.o ../qrsolve.o ../allsvcmb.o \
+               ../lotaplot.o ../leastsq.o ../orthom.o \
+               ../adapgaus.o ../allsvcmb3.o ../allsvcmb2.o \
+               ../quaevol3.f
+  int2
+
+
+

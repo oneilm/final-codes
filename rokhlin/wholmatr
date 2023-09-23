@@ -1,0 +1,10 @@
+  rm wholmatr.o
+  rm int2
+  f77 -fast -c wholmatr.f
+  f77 -o int2  wholmatr.o ../prini.o ../lotaplot.o ../legeexps.o \
+         ../adapgaus.o  ../protaper.o ../o1r20qua.o ../probexps.o \
+         ../orthom.o   ../o3rrdall.o ../svdpivot.o 
+  int2
+
+
+

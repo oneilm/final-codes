@@ -1,0 +1,6 @@
+  rm charpol_roots.o
+  rm int2
+  f77 -fast -c charpol_roots.f
+  f77  -o int2  charpol_roots.o  ../prini.o  ../quaplot.o ../trplopen.o \
+                         ../jaceig.o
+  int2

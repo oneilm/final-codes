@@ -1,0 +1,11 @@
+  rm homot2.o
+  rm int2
+  f77 -c homot2.f
+  f77 -o int2  homot2.o ../prini.o ../qrdpivot.o ../legeexps.o  \
+               ../mvecsvd.o ../lotaplot.o ../trplopen.o \
+                ../lotatime.o ../qrsolve.o ../svdpivot.o \
+               ../allsvcmb.o ../grmsol.o
+  int2
+
+
+

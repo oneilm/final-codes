@@ -1,0 +1,8 @@
+  rm cabskel.o
+  rm int2
+  f77 -fast -c cabskel.f
+  f77  -o int2  cabskel.o  ../prini.o  ../quaplot.o \
+                         ../legeexps.o ../nrleastsq.o \
+                         ../svdpivot.o ../ncleastsq.o \
+                         ../csvdpiv.o
+  int2

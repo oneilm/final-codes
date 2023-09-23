@@ -1,0 +1,9 @@
+  rm expocheb_prod.o
+  rm int2
+  f77    -c expocheb_prod.f
+  f77  -o int2  expocheb_prod.o ../prini.o ../chebexps.o \
+                ../quaplot.o ../cadapgau.o \
+                ../svdpivot.o ../cqrsolve.o
+  int2
+
+

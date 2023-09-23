@@ -1,0 +1,5 @@
+  rm tomail.o
+  rm int2
+  f77 -c tomail.f
+   f77 -o int2  tomail.o 
+  int2

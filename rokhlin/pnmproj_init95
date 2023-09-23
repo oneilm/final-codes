@@ -1,0 +1,6 @@
+rm pnmproj_init.o
+rm int2
+lf95 -c --o2 pnmproj_init.f
+lf95 -o int2 pnmproj_init.f ../prini.f ../quaplot.f ../legeexps.f\
+             ../onedfmm_init.f
+int2

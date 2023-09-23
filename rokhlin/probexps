@@ -1,0 +1,9 @@
+  rm probexps.o
+  rm int2
+  f77 -fast -c probexps.f
+  f77 -o int2  probexps.o ../prini.o ../lotaplot.o \
+               ../legeexps.o ../adapgaus.o ../protaper.o
+  int2
+
+
+

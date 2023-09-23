@@ -1,0 +1,5 @@
+  rm hank101.o
+  rm int2
+  f77   -c hank101.f
+  f77  -o int2  hank101.o ../prini.o ../rsplot.o
+  int2

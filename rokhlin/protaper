@@ -1,0 +1,9 @@
+  rm protaper.o
+  rm int2
+  f77  -c protaper.f
+  f77 -o int2  protaper.o ../prini.o ../lotaplot.o \
+                ../durdec.o
+  int2
+
+
+

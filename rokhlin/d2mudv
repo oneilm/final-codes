@@ -1,0 +1,8 @@
+  rm d2mudv.o
+  rm int2
+  f77  -c d2mudv.f
+  f77 -o int2  d2mudv.o ../prini.o  ../second.o
+  int2
+
+
+

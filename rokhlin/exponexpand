@@ -1,0 +1,10 @@
+  rm exponexpand.o
+  rm int2
+  f77 -fast -c exponexpand.f  
+  f77 -o int2  exponexpand.o ../prini.o ../hank103.o \
+               ../lotatime.o
+
+  int2
+
+
+

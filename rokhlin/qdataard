@@ -1,0 +1,5 @@
+  rm qdataard.o
+  rm int2
+  f77 -c qdataard.f
+   f77 -o int2  qdataard.o ../prini.o 
+  int2

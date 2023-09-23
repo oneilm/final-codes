@@ -1,0 +1,8 @@
+  rm leastsq.o
+  rm int2
+  f77   -c leastsq.f
+  f77 -o int2  leastsq.o ../prini.o ../rsplot.o ../second.o 
+  int2
+
+
+

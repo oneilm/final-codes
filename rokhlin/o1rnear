@@ -1,0 +1,9 @@
+  rm o1rnear.o
+  rm int2
+  f77 -fast -c o1rnear.f
+  f77 -o int2  o1rnear.o ../prini.o ../lotaplot.o ../legeexps.o \
+               ../adapgaus.o  ../protaper.o ../o1r20qua.o ../probexps.o
+  int2
+
+
+

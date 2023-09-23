@@ -1,0 +1,9 @@
+  rm emseval.o
+  rm int2
+  f77 -c emseval.f
+  f77 -o int2  emseval.o ../prini.o ../quaplot.o \
+                        ../adapgaus.o ../chebexps.o
+  int2
+
+
+

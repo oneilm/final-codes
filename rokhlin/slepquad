@@ -1,0 +1,8 @@
+  rm slepquad.o
+  rm int2
+  f77  -O -c slepquad.f
+  f77 -o int2  slepquad.o ../prini.o ../lotaplot.o 
+  int2
+
+
+

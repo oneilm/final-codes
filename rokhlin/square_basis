@@ -1,0 +1,10 @@
+  rm square_basis.o
+  rm int2
+  f77 -fast -c square_basis.f
+  f77 -fast -o int2  square_basis.o ../prini.o ../quaplot.o \
+                    ../csvdpiv.o ../hank103.o  ../legeexps.o ../ncleastsq.o
+ 
+  int2
+
+
+

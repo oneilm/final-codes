@@ -1,0 +1,7 @@
+   # set terminal postscript
+   # set output "plot.ps"
+  set title   "wandzura nodes on the triangle"
+   show title
+   set size 0.75,1.0
+plot [-.70E+00:0.12E+01] [-.95E+00:0.95E+00] "gn100032" notitle with points, \
+     "gn200032" notitle with lines

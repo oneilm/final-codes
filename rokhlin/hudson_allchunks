@@ -1,0 +1,14 @@
+  rm hudson_allchunks.o
+  rm int2
+  f77 -fast -c hudson_allchunks.f
+  f77  -o int2  hudson_allchunks.o ../prini.o ../trplopen.o \
+                         ../quaplot.o \
+                         ../rsortanyn.o ../sortanyn.o \
+                         ../jacskel.o ../d1mstrcr.o  \
+                         ../chebexps.o ../nrleastsq.o \
+                         ../svdpivot.o ../lotatime.o \
+                         ../durdec.o
+  int2
+
+
+

@@ -1,0 +1,5 @@
+  rm jfuns3d.o
+  rm int2
+  f77 -c jfuns3d.f
+  f77  -o int2  jfuns3d.o ../prini.o 
+  int2

@@ -1,0 +1,8 @@
+  rm cleastsq.o
+  rm int2
+  f77   -c cleastsq.f
+  f77 -o int2  cleastsq.o ../prini.o ../rsplot.o ../second.o 
+  int2
+
+
+

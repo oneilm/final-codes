@@ -1,0 +1,9 @@
+  rm r2dstrcr.o
+  rm int2
+  f77  -c r2dstrcr.f
+  f77 -o int2  r2dstrcr.o ../prini.o ../quaplot.o ../trplopen.o \
+                       ../sortanyn.o ../lotatime.o
+  int2
+
+
+

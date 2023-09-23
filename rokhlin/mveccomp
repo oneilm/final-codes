@@ -1,0 +1,8 @@
+  rm mveccomp.o
+  rm int2
+  f77  -O -c mveccomp.f
+  f77 -o int2  mveccomp.o ../prini.o ../legeexps.o ../adapgaum.o
+  int2
+
+
+

@@ -1,0 +1,5 @@
+  rm dpsquare.o
+  rm int2
+  f77 -c dpsquare.f
+   f77 -o int2  dpsquare.o ../prini.o
+  int2

@@ -1,0 +1,10 @@
+  rm reprinit.o
+  rm int2
+  f77 -fast -c reprinit.f
+  f77 -o int2  reprinit.o ../prini.o ../svdpivot.o ../allsvcmb.o \
+               ../legeexps.o ../mvecsvd.o ../lotaplot.o \
+               ../qrdpivot.o ../orthom.o
+  int2
+
+
+

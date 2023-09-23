@@ -1,0 +1,8 @@
+  rm qerrfun.o
+  rm int2
+  f77  -c qerrfun.f
+  f77 -o int2  qerrfun.o ../prini.o 
+  int2
+
+
+

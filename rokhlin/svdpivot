@@ -1,0 +1,8 @@
+  rm svdpivot.o
+  rm int2
+  f77  -c svdpivot.f
+  f77 -o int2  svdpivot.o ../prini.o 
+  int2
+
+
+

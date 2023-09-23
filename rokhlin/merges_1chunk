@@ -1,0 +1,10 @@
+  rm merges_1chunk.o
+  rm int2
+  f77 -fast -c merges_1chunk.f
+  f77  -fast -o int2  merges_1chunk.o ../prini.o ../hank103.o \
+               ../quaplot.o ../sortrear.o ../cskeleton.o \
+               ../ncleastsq.o ../lotatime.o
+  int2
+
+
+

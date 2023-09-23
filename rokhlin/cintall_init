@@ -1,0 +1,10 @@
+  rm cintall_init.o
+  rm int2
+  f77 -fast -c cintall_init.f
+  f77  -o int2  cintall_init.o ../prini.o ../legeexps.o \
+                         ../cadapgau.o ../protaper.o \
+                         ../quaplot.o ../lotatime.o \
+                         ../ccubeadap.o ../cubeadap.o
+  int2
+
+

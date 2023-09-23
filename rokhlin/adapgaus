@@ -1,0 +1,8 @@
+  rm adapgaus.o
+  rm int2
+  f77  -O -c adapgaus.f
+  f77 -o int2  adapgaus.o ../legeexps.o ../prini.o 
+  int2
+
+
+

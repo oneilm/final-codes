@@ -1,0 +1,8 @@
+  rm adapcheb.o
+  rm int2
+  f77  -O -c adapcheb.f
+  f77 -o int2  adapcheb.o ../prini.o rsplot.o
+  int2
+
+
+

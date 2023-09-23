@@ -1,0 +1,9 @@
+  rm calsvbld.o
+  rm int2
+  f77 -fast -c calsvbld.f
+  f77 -o int2  calsvbld.o ../prini.o  ../legeexps.o ../corthom.o \
+               ../cnestexs.o ../cmvecsvd.o ../lotaplot.o
+  int2
+
+
+

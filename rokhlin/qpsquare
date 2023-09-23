@@ -1,0 +1,5 @@
+  rm qpsquare.o
+  rm int2
+  f77 -c qpsquare.f
+   f77 -o int2  qpsquare.o ../prini.o
+  int2

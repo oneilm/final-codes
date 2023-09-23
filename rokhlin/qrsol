@@ -1,0 +1,9 @@
+  rm qrsol.o
+  rm int2
+  f77  -fast -c qrsol.f
+  f77 -o int2  qrsol.o ../prini.o ../grmsol.o ../lotatime.o \
+                        ../orthom.o
+  int2
+
+
+

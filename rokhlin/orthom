@@ -1,0 +1,7 @@
+  rm orthom.o
+  rm int2
+  f77    -c orthom.f
+  f77  -o int2  orthom.o ../prini.o
+  int2
+
+

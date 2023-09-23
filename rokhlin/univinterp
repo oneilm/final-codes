@@ -1,0 +1,8 @@
+  rm univinterp.o
+  rm int2
+  f77 -c univinterp.f
+  f77 -o int2  univinterp.o ../prini.o  ../lotaplot.o ../legeexps.o
+  int2
+
+
+

@@ -1,0 +1,10 @@
+  rm scattmatr_merge2.o
+  rm int2
+  f77 -fast -c scattmatr_merge2.f
+  f77  -fast -o int2  scattmatr_merge2.o ../prini.o ../hank103.o \
+               ../quaplot.o ../sortrear.o ../cskeleton.o ../ncleastsq.o \
+               ../lotatime.o ../corthom.o  ../merges_1chunk.o
+  int2
+
+
+

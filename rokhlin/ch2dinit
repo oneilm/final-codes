@@ -1,0 +1,5 @@
+  rm ch2dinit.o
+  rm int2
+  gfortran -c ch2dinit.f
+  gfortran -o int2  ch2dinit.o ../bin/prini.o 
+  int2

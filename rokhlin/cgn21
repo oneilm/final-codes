@@ -1,0 +1,6 @@
+   # set terminal postscript
+   # set output "plot.ps"
+  set title   "curve as entered"
+   show title
+   set size 0.75,1.0
+plot [0.26E+01:0.33E+02] [-.12E+02:0.19E+02] "gn100021" notitle with lines

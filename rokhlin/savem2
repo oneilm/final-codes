@@ -1,0 +1,15 @@
+#!/bin/sh
+
+while
+  test -n "$1"
+do
+
+  cp $1 t9654236
+  savemfort
+  cp t9654237 $1
+  rm t9654236  
+  rm t9654237
+
+  shift
+done
+

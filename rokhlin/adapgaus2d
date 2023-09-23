@@ -1,0 +1,8 @@
+  rm adapgaus2d.o
+  rm int2
+  fort77 -O3 -c adapgaus2d.f
+  fort77 -o int2  adapgaus2d.o ../bin/prini.o ../bin/legeexps.o
+  int2
+
+
+

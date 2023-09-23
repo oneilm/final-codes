@@ -1,0 +1,9 @@
+  rm stauadap.o
+  rm int2
+  f77  -c stauadap.f
+  f77 -o int2  stauadap.o ../prini.o ../legeexps.o  \
+  ../second.o ../lotaplot.o
+  int2
+
+
+

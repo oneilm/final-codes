@@ -1,0 +1,8 @@
+  rm qchfunde.o
+  rm int2
+  f77  -c qchfunde.f
+  f77 -o int2  qchfunde.o ../prini.o 
+  int2
+
+
+

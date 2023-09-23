@@ -1,0 +1,5 @@
+  rm matrplot_init.o
+  rm int2
+  f77  -c matrplot_init.f
+  f77  -o int2  matrplot_init.o ../prini.o 
+  int2

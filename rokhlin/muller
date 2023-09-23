@@ -1,0 +1,8 @@
+  rm muller.o
+  rm int2
+  f77    -c muller.f
+  f77  -o int2  muller.o ../prini.o 
+  int2
+
+
+

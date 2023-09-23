@@ -1,0 +1,8 @@
+  rm corrand.o
+  rm int2
+  f77 -fast -c corrand.f
+  f77 -o int2 corrand.o ../prini.o ../quaplot.o 
+  int2
+
+
+

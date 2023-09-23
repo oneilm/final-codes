@@ -1,0 +1,6 @@
+   # set terminal postscript
+   # set output "plot.ps"
+  set title   "curve as resampled"
+   show title
+   set size 0.75,1.0
+plot [ .26E+01: .33E+02] [-.12E+02: .19E+02] "gn100022" notitle with lines

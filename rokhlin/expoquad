@@ -1,0 +1,12 @@
+  rm expoquad.o
+  rm int2
+  f77 -fast -c expoquad.f
+  f77 -o int2  expoquad.o ../prini.o  ../legeexps.o \
+               ../prolcrea.o ../proquadr.o \
+               ../orthom.o ../cadapgau.o ../qrsolve.o
+  int2
+
+
+
+
+
