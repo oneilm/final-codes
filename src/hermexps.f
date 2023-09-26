@@ -1,6 +1,6 @@
 c
-c 
-c 
+C     DEPENDENCIES: NONE
+c
 cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 c 
 c        This is the end of the debugging code and the beginning
@@ -8,7 +8,33 @@ c        of the Hermite function code proper
 c 
 cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 c 
-c 
+c
+        subroutine hermexps_scaled(sc, itype, n, x, u, v, whts, w)
+        implicit real *8 (a-h,o-z)
+c
+C       This subroutine is identical to hermexps, except that the nodes
+C       and matrices u,v are constructed for the scaled Hermite
+C       functions, i.e. the functions described in hermexps but which
+C       are orthogonal with respect to the weight function
+C
+C         w(x) = e^{-x^2/ (2*sc^2) )
+c
+C
+
+
+        call hermexps(itype, n, x, u, v, whts, w)
+
+c
+C       ... and now scale the things
+c
+C
+        return
+        end
+c
+c
+c
+c
+c
         subroutine hermexps(itype, n, x, u, v, whts, w)
         implicit real *8 (a-h,o-z)
         save

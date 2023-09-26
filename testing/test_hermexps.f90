@@ -1,4 +1,10 @@
 program test_hermexps
+  !
+  ! DEPENDENCIES: prini.f
+  !               hermexps.f
+  !               pplot.f
+  !
+
   implicit real *8 (a-h,o-z)
   dimension funs(1000),ders(1000),diffs(1000), &
        funsp(1000),funsm(1000),dersp(1000),dersm(1000)
