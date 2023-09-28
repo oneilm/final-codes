@@ -34,9 +34,14 @@ usage:
 	@echo "-- SPECIAL FUNCTIONS --"
 	@echo "  hermexps            code for hermite functions, nodes, quad weights"
 	@echo ""
+	@echo "-- ALGORITHMS --"
+	@echo "  fftw_wrap           wrapper code for the FFTW library"
+	@echo ""
 	@echo "-- UTILITIES --"
 	@echo "  clean               remove all object and executable files"
 	@echo "  pplot               python output plotting routines"
+	@echo "  prini_omp           OpenMP compatible prini routines"
+	@echo ""
 	@echo "------------------------------------------------------------------------"
 
 
@@ -58,6 +63,9 @@ hermexps: src/hermexps.o src/prini.o src/pplot.o
 	$(FC) $(FFLAGS) testing/test_hermexps.f90 -o build/int2 $^
 	(cd build; ./int2)
 
+
+#-- ALGORITHMS --
+fftw_wrap: src/prini.o
 
 #-- UTILITIES --
 pplot: src/pplot.o src/prini.o

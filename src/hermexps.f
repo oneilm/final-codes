@@ -11,7 +11,10 @@ c
 c
         subroutine hermexps_scaled(sc, itype, n, x, u, v, whts, w)
         implicit real *8 (a-h,o-z)
+        integer itype, n
+        double precision sc, x(n), u(n,n), v(n,n), whts(n), w(n)
 c
+C
 C       This subroutine is identical to hermexps, except that the nodes
 C       and matrices u,v are constructed for the scaled Hermite
 C       functions, i.e. the functions described in hermexps but which
@@ -23,10 +26,14 @@ C
 
 
         call hermexps(itype, n, x, u, v, whts, w)
-
 c
 C       ... and now scale the things
 c
+        do i = 1,n
+           x(i) = x(i)/sc
+        end
+
+
 C
         return
         end
