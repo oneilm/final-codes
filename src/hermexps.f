@@ -31,7 +31,7 @@ C       ... and now scale the things
 c
         do i = 1,n
            x(i) = x(i)/sc
-        end
+        enddo
 
 
 C
