@@ -58,7 +58,7 @@ usage:
 
 
 #-- SPECIAL FUNCTIONS --
-hermexps: src/hermexps.o src/prini.o src/pplot.o
+hermexps: src/hermexps.o src/prini.o src/pplot.o src/gammanew_eval.o
 	rm -f build/*
 	$(FC) $(FFLAGS) testing/test_hermexps.f90 -o build/int2 $^
 	(cd build; ./int2)

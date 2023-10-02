@@ -9,10 +9,38 @@ c
 cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 c 
 c
+        subroutine hermfuns_scaled(sc, x, nmax, funs, ders, ifinit, w)
+        implicit real *8 (a-h,o-z)
+        integer nmax, ifinit
+        double precision funs(*), ders(*), w(*)
+c
+c       compute the values of the scaled hermite functions
+c
+c     override the ifinit for now, always initialize
+c        
+        ifinit = 1
+        call hermfuns(x/sc, nmax, funs, ders, ifinit, w)
+
+        do i=1,nmax
+           funs(i) = funs(i)/sqrt(sc)
+        enddo
+
+        
+      
+
+
+        
+        return
+        end
+c      
+c
+c
+c
+c
         subroutine hermexps_scaled(sc, itype, n, x, u, v, whts, w)
         implicit real *8 (a-h,o-z)
         integer itype, n
-        double precision sc, x(n), u(n,n), v(n,n), whts(n), w(n)
+        double precision sc, x(n), u(n,n), v(n,n), whts(n), w(*)
 c
 C
 C       This subroutine is identical to hermexps, except that the nodes
@@ -22,18 +50,61 @@ C       are orthogonal with respect to the weight function
 C
 C         w(x) = e^{-x^2/ (2*sc^2) )
 c
+c     Input:
+c       sc - 
+c       itype - 
+c       n - the number of quadrature nodes to output, the resulting quadrature
+c         is of order 2n
+c
+c     Output:
+c        
+c
 C
-
+        if ((itype .eq. 0) .or. (itype .eq. 1) .or. (itype .eq. 2)) then
+           continue
+        else
+           print *, 'in hermexps_scaled, invalid itype, itype = ', itype
+           stop
+        endif
 
         call hermexps(itype, n, x, u, v, whts, w)
-c
-C       ... and now scale the things
-c
+
         do i = 1,n
-           x(i) = x(i)/sc
+           x(i) = x(i)*sc
         enddo
+        if (itype .eq. 0) return
 
+c
+c       scale the weights if need be
+c        
+        do i = 1,n
+           whts(i) = whts(i)/sc
+        enddo
+        if (itype .eq. 1) return
 
+c
+c        construct the scaled matrix of values of Hermite polynomials at
+c        the Hermite nodes
+c 
+        ifinit=1
+        do i=1,n
+           call hermfuns(x(i)*sc, n-1, u, u(1,n/2), ifinit, w)
+           do j=1,n
+              v(i,j) = u(j,1)/sqrt(sc)
+           enddo
+        enddo
+      
+c
+c       now, v converts coefficients of a Hermite expansion into its
+c       values at the Hermite nodes. Construct its inverse u, converting
+c       the values of a function at Hermite nodes into the coefficients
+c       of a Hermite expansion of that function
+c 
+        do i=1,n
+           do j=1,n
+              u(i,j)=v(j,i)*whts(j)
+           enddo
+        enddo
 C
         return
         end
@@ -50,12 +121,12 @@ c
 c         This subroutine constructs the Hermite nodes on R^1, and the
 c         weights for the corresponding order n quadrature. It also
 c         constructs the matrix v converting the coefficients of an
-c         Hermite expansion into its values at the n Hermite and its
-c         inverse u, converting the values of a function at n Hermite
-c         nodes into the coefficients of the corresponding Hermite
-c         series. No attempt has been made to make this code efficient,
-c         but its speed is normally sufficient, and it is mercifully
-c         short.
+c         Hermite expansion into its values at the n Hermite nodes and
+c         its inverse u, converting the values of a function at n
+c         Hermite nodes into the coefficients of the corresponding
+c         Hermite series. No attempt has been made to make this code
+c         efficient, but its speed is normally sufficient, and it is
+c         mercifully short.
 c 
 c         IMPORTANT: A hermite expansion is an expansion of the form
 c 
@@ -90,7 +161,7 @@ c         of the form (1) above of order n-1 at n Hermite nodes
 c         into the coefficients of its Hermite expansion - computed
 c         only if itype=2
 c  v - the n*n matrix converting the coefficients of an n-term
-c         Hermite expansion into its values at n Hermite nodes
+C         Hermite expansion into its values at n Hermite nodes
 c         (note that v is the inverse of u) - computed only if itype=2
 c  whts - the corresponding quadrature weights - computed only
 c         if itype .ge. 1
@@ -387,7 +458,7 @@ c
 c 
 c 
 c 
-        subroutine hermfuns(x,nmax,funs,ders,ifinit,w)
+        subroutine hermfuns(x, nmax, funs, ders, ifinit, w)
         implicit real *8 (a-h,o-z)
         save
         dimension funs(1),w(1),ders(1)
