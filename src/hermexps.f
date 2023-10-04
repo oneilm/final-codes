@@ -14,7 +14,15 @@ c
         integer nmax, ifinit
         double precision funs(*), ders(*), w(*)
 c
-c       compute the values of the scaled hermite functions
+c     compute the values of the scaled hermite functions, i.e. the functions
+c
+c        fun_n = c_n \cdot H_n(x/sc) \cdot e^(-x^2/ 2 / sc^2),                      (1)
+c 
+c        where H_n is the n-th Hermite polynomial as described in
+c        hermfuns, and the coefficients c_n are chosen in such a way
+c        that the functions fun_0, fun_1, ... are orthonormal on
+c        R^1. These are merely a scaled version of the usual Hermite
+c        functions.
 c
 c     override the ifinit for now, always initialize
 c        

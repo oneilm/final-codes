@@ -271,23 +271,35 @@ program test_hermexps
   ! check the values to coefficients matrix
   !
   do i = 1,n
-     vals(i) = xs(i) * exp(-xs(i)**2 / 2/sc**2)
+     vals(i) = xs(i) * exp(-xs(i)**2 / 2/sc**2) &
+          / (5*sqrt(5.0d0)*pi**(0.25d0)/4)
   end do
 
   call matvec(uu, vals, coefs, n)
   call prin2('coefs in scaled expansion = *', coefs, n)
   
-  stop
   
 
   ! check that uu * vv = I
   call matmat(vv, uu, n, ww)
-  call prin2('uu vv =*',ww,n*n)
+  !call prin2('uu vv =*',ww,n*n)
 
+  ddd = 0
+  do i=1,n
+     ww(i+n*(i-1)) = ww(i+n*(i-1)) - 1
+  end do
+
+  do i = 1,n**2
+     ddd = ddd + ww(i)**2
+  end do
+  ddd = sqrt(ddd)
+  call prin2('frobenius norm of scaled I - UV = *', ddd, 1)
    
 
   stop
 end program test_hermexps
+
+
 
 
 
