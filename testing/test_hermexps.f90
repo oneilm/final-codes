@@ -16,7 +16,7 @@ program test_hermexps
   double precision :: ts(10000), vals(10000), vals2(10000)
 
   dimension :: xs(1000),uu(100000),vv(100000),whts(1000), &
-           ww(100000),coefs(1000)
+           ww(100000),coefs(1000), dints(10000)
 
 
 
@@ -115,42 +115,60 @@ program test_hermexps
   !
   ! test (debug) the quadratures
   !
-  dint = 0
-  !p = 6.0d0
-  do i = 1,n
-     !dint = dint + whts(i) * xs(i)**p * exp(-xs(i)**2/2)
-     dint = dint + whts(i) * cos(xs(i)) * exp(-xs(i)**2/2)
-  enddo
-
-  !xxx = (1+p)/2
-  !call gammanew_eval(xxx, gam)
-  !dexact = sqrt(2.0d0)**(p-1) * (1.0d0 + (-1.0d0)**p) *gam 
-
-  pi = 4*atan(1.0d0)
-  !dexact = 15*sqrt(2*pi)
-
-  dexact = sqrt(2*pi/exp(1.0d0))
-  
+  call prin2('quadrature weights = *', whts, n)
   call prin2('quadrature nodes = *', xs, n)
-
+  print *
   do i =1,n
-     print *, xs(i)
+     print *, 'node ', i, '  ',xs(i)
   end do
   
+  print *
+
+  dint = 0
+  p = 4.0d0
+  do i = 1,n
+     dint = dint + whts(i) * xs(i)**p * exp(-xs(i)**2)
+     !dint = dint + whts(i) * cos(xs(i)) * exp(-xs(i)**2)
+  enddo
+
+  xxx = (1+p)/2
+  call gammanew_eval(xxx, gam)
+  dexact = 0.5d0 * (1.0d0 + (-1.0d0)**p) *gam 
+
+  !pi = 4*atan(1.0d0)
+  !dexact = sqrt(pi)/exp(0.25d0)
   
-  call prin2('quadrature weights = *', whts, n)
+
+
+  call prin2('integrating x^p, p = *', p, 1)
   call prin2('from quad, integral = *', dint, 1)
   call prin2('exact integral = *', dexact, 1)
   call prin2('error = *', dint - dexact, 1)
+  call prin2('ratio, dint/dexact = *', dint/dexact, 1)
+  print *
+  print *
 
+  dint = 0
+  do i = 1,n
+     dint = dint + whts(i) * cos(xs(i)) * exp(-xs(i)**2)
+  enddo
+
+  pi = 4*atan(1.0d0)
+  dexact = sqrt(pi)/exp(0.25d0)
+  
+  call prin2('integrating cos(x)*', p, 0)
+  call prin2('from quad, integral = *', dint, 1)
+  call prin2('exact integral = *', dexact, 1)
+  call prin2('error = *', dint - dexact, 1)
+  call prin2('ratio, dint/dexact = *', dint/dexact, 1)
   print *
   print *
-  print *
+
   
   !
   ! plot a specific hermite function
   !
-  m = 9
+  m = n
   a = xs(1)
   b = xs(n)
   nplot = 400
@@ -167,14 +185,12 @@ program test_hermexps
   call pyplot(iw, ts, vals, nplot, itype, 'hermite polynomial*')
 
 
-  
-  
 
   !
   ! now try out the scaled routines
   !
   print *, '----------- testing the scaled function routines ----------'
-  sc = 2
+  sc = 2.5d0
   print *
   print *
   call prin2('scale factor, sc = *', sc, 1)
@@ -194,39 +210,72 @@ program test_hermexps
        ts, vals2, nplot, itype, &
        'hermite polynomial and its scaled version*')
 
+  
   !
-  ! create a big grid, apply trapezoidal rule and make sure they are unit functions
+  ! create a big grid, apply trapezoidal rule and make sure they are
+  ! unit functions
   !
-  a = -20
-  b = 20
-  nquad = 100
+  a = -30
+  b = 30
+  nquad = 500
   h = (b-a)/(nquad-1)
-  dint = 0
-  do i = 1,nquad
-     t = a + h*(i-1)
-     call hermfuns_scaled(sc, t, m+10, funs, ders, ifinit, w)
-     dint = dint + h*funs(m+1)**2
+
+  do j = 1,n
+     dints(j) = 0
+     do i = 1,nquad
+        t = a + h*(i-1)
+        call hermfuns_scaled(sc, t, 2*n+20, funs, ders, ifinit, w)
+        dints(j) = dints(j) + h*funs(j)**2
+     end do
   end do
 
-  call prin2('after trapezoidal integration, h_m norm = *', dint, 1)
+  call prin2('norm of scaled h_0 through h_{n-1} = *', dints, n)
 
+  do i = 1,n
+     dints(i) = dints(i) - 1
+  end do
+  call prin2('and errors in norms = *', dints, n)
+  
+
+  print *
+  print *
+  print *
+  
   !
   ! now construct the quadrature, and integrate to see if we get the
   ! same answer using the quadrature weights
   !
   itype = 2
-  n = m*2 + 10
   call hermexps_scaled(sc, itype, n, xs, uu, vv, whts, w)
 
   dint = 0
   do i = 1,n
-     call hermfuns_scaled(sc, xs(i), m+10, funs, ders, ifinit, w)
-     dint = dint + whts(i)*funs(m+1)**2
+     dint = dint + whts(i)*xs(i)**p * exp(-xs(i)**2 / sc**2)
   end do
-  
-  call prin2('after gaussian integration, h_m norm = *', dint, 1)
-  call prin2('error = *', dint-1, 1)
 
+  xxx = (1+p)/2
+  call gammanew_eval(xxx, gam)
+  dexact = 0.5d0 * (1.0d0 + (-1.0d0)**p) * (sc**(1+p))*gam 
+
+  
+  call prin2('integrating x^p, p = *', p, 1)
+  call prin2('from quad, integral = *', dint, 1)
+  call prin2('exact integral = *', dexact, 1)
+  call prin2('error = *', dint - dexact, 1)
+  call prin2('ratio, dint/dexact = *', dint/dexact, 1)
+  print *
+  print *
+
+
+  !
+  ! check the values to coefficients matrix
+  !
+  do i = 1,n
+     vals(i) = xs(i) * exp(-xs(i)**2 / 2/sc**2)
+  end do
+
+  call matvec(uu, vals, coefs, n)
+  call prin2('coefs in scaled expansion = *', coefs, n)
   
   stop
   

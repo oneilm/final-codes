@@ -24,11 +24,6 @@ c
         do i=1,nmax
            funs(i) = funs(i)/sqrt(sc)
         enddo
-
-        
-      
-
-
         
         return
         end
@@ -78,7 +73,7 @@ c
 c       scale the weights if need be
 c        
         do i = 1,n
-           whts(i) = whts(i)/sc
+           whts(i) = whts(i)*sc
         enddo
         if (itype .eq. 1) return
 
@@ -88,7 +83,7 @@ c        the Hermite nodes
 c 
         ifinit=1
         do i=1,n
-           call hermfuns(x(i)*sc, n-1, u, u(1,n/2), ifinit, w)
+           call hermfuns(x(i)/sc, n-1, u, u(1,n/2), ifinit, w)
            do j=1,n
               v(i,j) = u(j,1)/sqrt(sc)
            enddo
