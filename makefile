@@ -34,6 +34,7 @@ usage:
 	@echo "-- SPECIAL FUNCTIONS --"
 	@echo "  hermexps            code for hermite functions, nodes, quad weights"
 	@echo "  hermexps3d          TODO : code for 3d hermite functions and quads"
+	@echo "  legearc             compute legendre nodes in arclength on a curve"
 	@echo ""
 	@echo "-- ALGORITHMS --"
 	@echo "  fftw_wrap           TODO : wrapper code for the FFTW library"
@@ -68,6 +69,12 @@ hermexps3d: src/hermexps3d.o src/hermexps.o src/prini.o src/pplot.o src/gammanew
 	rm -f build/*
 	$(FC) $(FFLAGS) testing/test_hermexps3d.f90 -o build/int2 $^
 	(cd build; ./int2)
+
+legearc: src/legearc.o src/prini.o src/legeexps.o src/quaplot.o src/adapgaus.o
+	rm -f build/*
+	$(FC) $(FFLAGS) testing/test_legearc.f -o build/int2 $^
+	(cd build; ./int2)
+
 
 
 

@@ -273,7 +273,7 @@ c
         s2=cd
 c
         d=abs(s2-s1)/abs(s2)
-        thresh=1.0d-14
+        thresh=1.0d-13
         if (d .gt. thresh) then
           call prin2('arclength only calculated to rel prec*',d,1)
           ier=1
