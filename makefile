@@ -41,6 +41,7 @@ usage:
 	@echo ""
 	@echo "-- UTILITIES --"
 	@echo "  clean               remove all object and executable files"
+	@echo "  quaplot             old-school gnuplot 2D plotting"
 	@echo "  pplot               python output plotting routines"
 	@echo "  prini_omp           TODO : OpenMP compatible prini routines"
 	@echo ""
@@ -81,7 +82,16 @@ legearc: src/legearc.o src/prini.o src/legeexps.o src/quaplot.o src/adapgaus.o
 #-- ALGORITHMS --
 fftw_wrap: src/prini.o
 
+
+
+
+
 #-- UTILITIES --
+quaplot: src/quaplot.o src/prini.o
+	rm -f build/*
+	$(FC) $(FFLAGS) testing/test_quaplot.f -o build/int2 $^
+	(cd build; ./int2)
+
 pplot: src/pplot.o src/prini.o
 	rm -f build/*
 	$(FC) $(FFLAGS) testing/test_pplot.f90 -o build/int2 $^

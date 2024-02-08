@@ -65,6 +65,7 @@ c
         REAL *8 A2(1)
         REAL *8 A4(1)
 ccc        REAL *16 A4(1)
+        complex *16 Z2
         INTEGER *4 IA(1)
         INTEGER *2 IA2(1)
         logical *1 la(1)
@@ -99,10 +100,21 @@ C
         IF(IQ.NE.0 .AND. N.NE.0) WRITE(IQ,1400)(A2(J),J=1,N)
  1400 FORMAT(6(2X,E11.5))
         RETURN
-C 
-C 
-C 
-C 
+C
+C
+C
+C
+        entry prinz(mes,z2,n)
+          if (ison .le. 0) return
+          call messpr(mes,ip,iq)
+          if(ip.ne.0 .and. n.ne.0) write(ip,1401) (z2(j),j=1,n)
+          if(iq.ne.0 .and. n.ne.0) write(iq,1401) (z2(j),j=1,n)
+ 1401     format(6(2x,e11.5))
+        return
+C
+C
+C
+C
         ENTRY PRIN2_long(MES,A2,N)
         if (ison .le. 0) return
         CALL MESSPR(MES,IP,IQ)
