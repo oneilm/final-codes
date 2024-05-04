@@ -31,6 +31,9 @@ usage:
 	@echo "------------------------------------------------------------------------"
 	@echo "Makefile for final-codes, specify which test to run:"
 	@echo ""
+	@echo "-- QUADRATURE --"
+	@echo "  gaussq              legacy code for several Gaussian quadratures"
+	@echo ""
 	@echo "-- SPECIAL FUNCTIONS --"
 	@echo "  hermexps            code for hermite functions, nodes, quad weights"
 	@echo "  hermexps3d          TODO : code for 3d hermite functions and quads"
@@ -38,7 +41,7 @@ usage:
 	@echo "  legearc             compute legendre nodes in arclength on a curve"
 	@echo ""
 	@echo "-- ALGORITHMS --"
-	@echo "  fftw_wrap           TODO
+	@echo "  fftw_wrap           TODO"
 	@echo "  rsortanyn           sorting routine for real arrays"
 	@echo ""
 	@echo "-- UTILITIES --"
@@ -61,6 +64,11 @@ usage:
 	$(FC) -c $(FFLAGS) $< -o $@
 
 
+#-- QUADRATURE --
+gaussq: src/gaussq.o src/prini.o src/legeexps.o src/adapgaus.o
+	rm -f build/*
+	$(FC) $(FFLAGS) testing/test_gaussq.f90 -o build/int2 $^
+	(cd build; ./int2)
 
 
 #-- SPECIAL FUNCTIONS --
