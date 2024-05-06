@@ -32,7 +32,8 @@ usage:
 	@echo "Makefile for final-codes, specify which test to run:"
 	@echo ""
 	@echo "-- QUADRATURE --"
-	@echo "  gaussq              legacy code for several Gaussian quadratures"
+	@echo "  adapgaus            adaptive gauss-legendre quadrature"
+	@echo "  gaussq              netlib code for several Gaussian quadratures"
 	@echo ""
 	@echo "-- SPECIAL FUNCTIONS --"
 	@echo "  hermexps            code for hermite functions, nodes, quad weights"
@@ -64,8 +65,13 @@ usage:
 	$(FC) -c $(FFLAGS) $< -o $@
 
 
-#-- QUADRATURE --
-gaussq: src/gaussq.o src/prini.o src/legeexps.o src/adapgaus.o
+t#-- QUADRATURE --
+adapgaus: src/adapgaus.o src/prini.o src/legeexps.o
+	rm -f build/*
+	$(FC) $(FFLAGS) testing/test_adapgaus.f -o build/int2 $^
+	(cd build; ./int2)
+
+gaussq: src/gaussq.o src/prini.o src/legeexps.o src/adapgaus.o src/adapgaus_quad.o
 	rm -f build/*
 	$(FC) $(FFLAGS) testing/test_gaussq.f90 -o build/int2 $^
 	(cd build; ./int2)

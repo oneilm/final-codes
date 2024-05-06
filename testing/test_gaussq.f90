@@ -5,7 +5,9 @@ program test_gaussq
   double precision :: done, rints(10000), exacts(10000), diffs(10000)
   double precision :: pars(10)
 
-  external :: fjacobi
+  real *16 :: aq, bq, qint, epsq, pq, qpars(10), alphaq, betaq
+  
+  external :: fjacobi, fjacobiq
 
   call prini(6,13)
 
@@ -34,6 +36,12 @@ program test_gaussq
   else if (kind .eq. 5) then
      print *, '- - - generating gauss-jacobi quadrature - - -'
      print *     
+     alphaq = -0.5q0 + .1q0
+     betaq = -0.5q0 + .1q0
+     alphaq = -0.5q0
+     betaq = -0.5q0
+     alpha = alphaq
+     beta = betaq
   else
      print *, ' kind not set to 1 -> 6'
      stop
@@ -48,9 +56,8 @@ program test_gaussq
   !PRINT *, 'ENTER k'
   !READ *,k
   !CALL PRINF('k=*',k,1 )
- 
-  alpha = 1
-  beta = 1
+  
+
   kpts = 0
 
   
@@ -105,20 +112,35 @@ program test_gaussq
            rints(k+1) = rints(k+1) + w(i) * (t(i)**k)
         end do
 
-        ! calculate the exact integral
-        a = -1
-        b = 1
-        m = 16
-        eps = 1.0d-13
+        ! compute the exact integral using adaptive integration in
+        ! quadruple precision
+        aq = -1
+        bq = 1
+        m = 32
+        epsq = 1.0q-15
 
-        p = k
-        call  adapgaus(ier, a, b, fjacobi, p, pars, m, eps, &
-             exacts(k+1), maxrec, numint)
+        pq = k
+        qpars(1) = alphaq
+        qpars(2) = betaq
 
+        ier = 0
+        qint = 0
+        call  adapgaus_quad(ier, aq, bq, fjacobiq, pq, qpars, m, epsq, &
+             qint, maxrec, numint)
+        
+        if (ier .ne. 0) then
+           call prinf('after adapgaus_quad, ier = *', ier, 1)
+           call prinf('maxrec = *', maxrec, 1)
+           call prinf('numint = *', numint, 1)
+           call prinf('and k = *', k, 1)
+           call prin2('and alpha = *', alpha, 1)
+           call prin2('and beta = *', beta, 1)
+           stop
+        end if
+        
+        exacts(k+1) = qint
         diffs(k+1) = rints(k+1) - exacts(k+1)
      end do
-     
-
 
      
   else if (kind .eq. 6) then
@@ -158,3 +180,18 @@ function fjacobi(x, p, pars)
 
   return
 end function fjacobi
+
+
+
+
+
+function fjacobiq(x, p, pars)
+  implicit real *16 (a-h,o-z)
+  real *16 :: x, pars(*)
+
+  alpha = pars(1)
+  beta = pars(2)
+  fjacobiq = x**p * (1-x)**alpha * (1+x)**beta
+
+  return
+end function fjacobiq

@@ -26,7 +26,9 @@ c
  2200 format(' and more accurately, rint= ',e22.16)
         write(6,2200) rint
         write(13,2200) rint
-          if(2 .ne. 3) stop
+
+
+        if(2 .ne. 2) stop
 c
 c        evaluate the integral via trapezoidal rule
 c
