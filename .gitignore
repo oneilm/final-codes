@@ -36,3 +36,6 @@ int2
 fort.*
 plot*.dat
 plot*.py
+
+# other
+.DS_Store
