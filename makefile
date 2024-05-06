@@ -65,7 +65,7 @@ usage:
 	$(FC) -c $(FFLAGS) $< -o $@
 
 
-t#-- QUADRATURE --
+#-- QUADRATURE --
 adapgaus: src/adapgaus.o src/prini.o src/legeexps.o
 	rm -f build/*
 	$(FC) $(FFLAGS) testing/test_adapgaus.f -o build/int2 $^

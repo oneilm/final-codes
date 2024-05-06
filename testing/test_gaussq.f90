@@ -15,6 +15,19 @@ program test_gaussq
   !C       CREATE THE INPUT PARAMETERS
   !C 
 
+  print *, 'Choose from the following: '
+  print *, ' KIND   TYPE'
+  print *, '  1     legendre'
+  print *, '  2     1st kind chebyshev'
+  print *, '  3     2nd kind chebyshev'
+  print *, '  4     hermite'
+  print *, '  5     jacobi'
+  print *, '  6     generalized laguerre'
+
+  print *, 'enter kind:'
+  read *, kind
+  call prinf('kind has been set to = *', kind, 1)
+  
   !
   ! set the kind of quadrature to generate
   ! 1: legendre
@@ -25,7 +38,7 @@ program test_gaussq
   ! 6: generalized laguerre, with alpha > -1
   !
 
-  kind = 5
+  !!!!kind = 5
 
   if (kind .eq. 1) then
      print *, '- - - generating gauss-legendre quadrature - - -'
@@ -38,10 +51,12 @@ program test_gaussq
      print *     
      alphaq = -0.5q0 + .1q0
      betaq = -0.5q0 + .1q0
-     alphaq = -0.5q0
-     betaq = -0.5q0
+     alphaq = -0.5q0 + 2
+     betaq = -0.5q0 + 2
      alpha = alphaq
      beta = betaq
+     call prin2('alpha = *', alpha, 1)
+     call prin2('beta = *', beta, 1)
   else
      print *, ' kind not set to 1 -> 6'
      stop
@@ -49,7 +64,7 @@ program test_gaussq
   
   
   
-  PRINT *, 'ENTER n'
+  PRINT *, 'enter n, number of nodes in quadrature'
   READ *,n
   CALL PRINF('n=*',n,1 )
   
@@ -103,6 +118,7 @@ program test_gaussq
   else if (kind .eq. 5) then
      ! test gauss-jacobi, comparing against adaptive integration
 
+     
      pars(1) = alpha
      pars(2) = beta
 
