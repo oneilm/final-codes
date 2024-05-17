@@ -63,7 +63,7 @@ c
         CHARACTER MES*(*), AA(1)
         REAL *4 A(1)
         REAL *8 A2(1)
-        REAL *8 A4(1)
+        REAL *16 A4(1)
 ccc        REAL *16 A4(1)
         complex *16 Z2
         INTEGER *4 IA(1)

@@ -34,6 +34,7 @@ usage:
 	@echo "-- QUADRATURE --"
 	@echo "  adapgaus            adaptive gauss-legendre quadrature"
 	@echo "  gaussq              netlib code for several Gaussian quadratures"
+	@echo "  alpertsqrt          gauss-trapezoidal rules for sqrt singularities"
 	@echo ""
 	@echo "-- SPECIAL FUNCTIONS --"
 	@echo "  hermexps            code for hermite functions, nodes, quad weights"
@@ -74,6 +75,11 @@ adapgaus: src/adapgaus.o src/prini.o src/legeexps.o
 gaussq: src/gaussq.o src/prini.o src/legeexps.o src/adapgaus.o src/adapgaus_quad.o
 	rm -f build/*
 	$(FC) $(FFLAGS) testing/test_gaussq.f90 -o build/int2 $^
+	(cd build; ./int2)
+
+alpertsqrt: src/alpertsqrt.o src/prini.o src/adapgaus_quad.o
+	rm -f build/*
+	$(FC) $(FFLAGS) testing/test_alpertsqrt.f90 -o build/int2 $^
 	(cd build; ./int2)
 
 
